@@ -2,13 +2,13 @@ eyebrow: Tööriistad
 heading: Millega tegelen
 product:
   title: Toode ja disain
-  items: Tootestrateegia · UX · Figma · Prototüüpimine · Kasutajauuringud
+  items: Tootestrateegia · UX · Prototüüpimine
 frontend:
-  title: Frontend
-  items: TypeScript · React · Next.js · Tailwind · SwiftUI
+  title: Frontend ja mobiil
+  items: TypeScript · React · Next.js · SwiftUI
 backend:
   title: Tagarakendus ja taristu
-  items: Node.js · Firebase · Postgres · Cloudflare · Vercel
+  items: Node.js · Postgres · Firebase · Vercel
 ai:
   title: AI-tööriistad
-  items: Claude · OpenAI · Agendipõhised töövood · Evalid · RAG
+  items: Claude · Agendipõhised töövood · Evalid · RAG

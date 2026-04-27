@@ -1,4 +1,4 @@
-order: 30
+order: 20
 displayTitle: magnusmagi.com
-type: Isiklik veebileht
-summary: See lehekülg. Ehitatud Next.js 16, Tailwindi ja next-intl abil. Lähtekood on saadaval — võta julgelt kujundus üle.
+type: Avatud lähtekood · Isiklik veebileht
+summary: See lehekülg. Next.js 16, Tailwind, next-intl, Keystatic CMS, Resend kontaktivormi jaoks, HMAC-allkirjastatud admin sisselogimine. Lähtekood GitHubis — võta julgelt üle.

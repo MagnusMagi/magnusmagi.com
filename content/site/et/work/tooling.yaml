@@ -1,4 +1,4 @@
-order: 20
+order: 10
 displayTitle: Sisemised AI-tööriistad
-type: Arendajatööriistad
-summary: Käsitsi loodud agendipõhised töövood, evalid ja arenduse automatiseerimine Claude Code'i ja Anthropic SDK peal.
+type: Arendajatööriistad · Igapäevane kasutus
+summary: Käsitsi loodud agendipõhised töövood Claude Code'i ja Anthropic SDK peal. Evalitiim mudeli regressioonitestimiseks, automatiseeritud arenduse skriptid ja väike taaskasutatavate mustrite kogum. Kasutan iga päev.

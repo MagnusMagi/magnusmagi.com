@@ -1,7 +1,7 @@
 heading: What I am working on
 clubfriends:
   title: ClubFriends
-  body: Building a social product from zero — SwiftUI on iOS, Firebase backend, and a small team of trusted collaborators.
+  body: Building a social product from zero — SwiftUI on iOS, Firebase backend, and a small team of trusted collaborators. Targeting a TestFlight beta this year.
   meta: iOS · 2026
 writing:
   title: Writing
@@ -9,5 +9,5 @@ writing:
   meta: Notes · Ongoing
 investing:
   title: Advising
-  body: Occasionally advising early-stage founders on product, technical hiring, and fundraising.
-  meta: Selected founders · Q3 2026
+  body: Working with a small set of early-stage founders on product direction, technical hiring, and shipping fast without breaking trust.
+  meta: Selected founders · Ongoing

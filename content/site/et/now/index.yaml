@@ -1,7 +1,7 @@
 heading: Millega praegu tegelen
 clubfriends:
   title: ClubFriends
-  body: Ehitan nullist sotsiaalset toodet — SwiftUI iOS-il, Firebase tagarakenduses ja väike usaldusväärsete kaastöötajate ring.
+  body: Loon nullist sotsiaalset toodet — SwiftUI iOS-il, Firebase tagarakenduses ja väike usaldusväärsete kaastöötajate ring. Sihiks TestFlight beeta veel sel aastal.
   meta: iOS · 2026
 writing:
   title: Kirjutamine
@@ -9,5 +9,5 @@ writing:
   meta: Märkmed · Pidev
 investing:
   title: Nõustamine
-  body: Aeg-ajalt nõustan varase faasi asutajaid toote, tehnilise värbamise ja rahastamise teemadel.
-  meta: Valitud asutajad · 2026 III kvartal
+  body: Töötan väikese grupi varase faasi asutajatega toote, tehnilise värbamise ja kiire väljasaatmise teemadel — ilma usaldust murdmata.
+  meta: Valitud asutajad · Pidev

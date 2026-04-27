@@ -1,4 +1,4 @@
-order: 20
+order: 10
 displayTitle: Internal AI tooling
-type: Developer tools
-summary: Hand-rolled agent workflows, evals, and dev-loop automation built on top of Claude Code and the Anthropic SDK.
+type: Developer tools · Daily driver
+summary: Hand-rolled agent workflows on top of Claude Code and the Anthropic SDK. Eval harness for model regression testing, automated dev-loop scripts, and a small library of reusable patterns. Used every day.

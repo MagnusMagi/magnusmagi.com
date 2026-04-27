@@ -1,4 +1,4 @@
-order: 30
+order: 20
 displayTitle: magnusmagi.com
-type: Personal site
-summary: This site. Built with Next.js 16, Tailwind, and next-intl. Source-available — feel free to borrow the layout.
+type: Open source · Personal site
+summary: This site. Next.js 16, Tailwind, next-intl, Keystatic CMS, Resend for the contact form, HMAC-signed admin auth. Source available on GitHub — feel free to fork.
