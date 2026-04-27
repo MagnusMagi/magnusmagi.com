@@ -1,0 +1,51 @@
+{
+  "Nav": {
+    "home": "Avaleht",
+    "about": "Minust",
+    "work": "Tööd",
+    "writing": "Kirjutised",
+    "contact": "Kontakt",
+    "languageLabel": "Keel",
+    "primaryLabel": "Põhinavigatsioon",
+    "skipToContent": "Hüppa sisule"
+  },
+  "Contact": {
+    "form": {
+      "nameLabel": "Sinu nimi",
+      "namePlaceholder": "Jaan Tamm",
+      "emailLabel": "Sinu e-post",
+      "emailPlaceholder": "sina@näide.ee",
+      "messageLabel": "Sõnum",
+      "messagePlaceholder": "Mille kallal töötad ja kuidas saan aidata?",
+      "submit": "Saada sõnum",
+      "submitting": "Saadan…",
+      "successTitle": "Aitäh — sõnum saadetud.",
+      "successBody": "Vastan paari päeva jooksul.",
+      "errorValidation": "Palun kontrolli vormi ja proovi uuesti.",
+      "errorRateLimit": "Liiga palju sõnumeid sellest võrgust. Palun proovi hiljem uuesti.",
+      "errorServer": "Midagi läks minu poolel valesti. Palun saada e-kiri otse.",
+      "errorConfig": "Kontaktivorm on ajutiselt väljas. Palun saada e-kiri otse.",
+      "honeypotLabel": "Jäta see väli tühjaks"
+    }
+  },
+  "Writing": {
+    "metaTitle": "Kirjutised — Magnus Mägi",
+    "metaDescription": "Magnus Mägi märkmed tarkvara ehitamisest, asutajatest ja tööriistadest.",
+    "eyebrow": "Kirjutised",
+    "heading": "Märkmed töökojast",
+    "subhead": "Lühitükid toodete ehitamisest, tööriistadest, mida kasutan, ja sellest, mida teel õpin.",
+    "empty": "Veel postitusi pole — aga kirjutan.",
+    "backToList": "Kõik märkmed",
+    "backToHome": "Tagasi avalehele",
+    "readingTime": "{minutes} min lugemist",
+    "tagArchiveHeading": "Sildiga „{tag}\"",
+    "tagArchiveSubhead": "Postitused, mis jagavad sama teemat.",
+    "tagArchiveEmpty": "Selle sildi all veel postitusi pole.",
+    "tagsLabel": "Sildid"
+  },
+  "LanguageSwitcher": {
+    "label": "Keel",
+    "en": "Inglise",
+    "et": "Eesti"
+  }
+}

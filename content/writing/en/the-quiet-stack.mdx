@@ -1,0 +1,36 @@
+---
+title: "The quiet stack"
+description: "Why I keep choosing boring tools for new projects, and the short list I default to in 2026."
+publishedAt: "2026-03-02"
+tags: ["tools", "engineering"]
+---
+
+When I start something new I default to the quietest stack I can get away
+with. Not the smallest, not the cheapest, but the one I can hear myself
+think over.
+
+## The list
+
+For a 2026 consumer product, the stack is usually:
+
+- **SwiftUI on iOS**, because Apple's docs are good enough and the runtime
+  is fast enough that I do not have to think about either.
+- **Firebase** for auth, Firestore, and Functions, because the local
+  emulator is a credible production simulator and the Console is a credible
+  ops dashboard.
+- **TypeScript everywhere** I write server code, with a small Zod schema at
+  every boundary and very little else.
+- **Next.js** for any web surface, App Router only, with the smallest
+  config I can write.
+
+Nothing on this list is exciting. That is the point.
+
+## What gets loud
+
+Loud stacks have a tell. You spend more time configuring than building.
+You read changelogs. You read more changelogs. You write blog posts about
+the changelogs. You try the new bundler and your build breaks on the
+second commit.
+
+A quiet stack lets me forget about it for two weeks at a time, which is
+where the actual product progress lives.

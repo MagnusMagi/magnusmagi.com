@@ -1,0 +1,51 @@
+{
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "work": "Work",
+    "writing": "Writing",
+    "contact": "Contact",
+    "languageLabel": "Language",
+    "primaryLabel": "Primary",
+    "skipToContent": "Skip to content"
+  },
+  "Contact": {
+    "form": {
+      "nameLabel": "Your name",
+      "namePlaceholder": "Jane Doe",
+      "emailLabel": "Your email",
+      "emailPlaceholder": "you@example.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "What are you working on, and how can I help?",
+      "submit": "Send message",
+      "submitting": "Sending…",
+      "successTitle": "Thanks — message sent.",
+      "successBody": "I'll get back to you within a couple of days.",
+      "errorValidation": "Please check the form and try again.",
+      "errorRateLimit": "Too many messages from this network. Please try again later.",
+      "errorServer": "Something went wrong on my end. Please email me directly.",
+      "errorConfig": "The contact form is temporarily offline. Please email me directly.",
+      "honeypotLabel": "Leave this field empty"
+    }
+  },
+  "Writing": {
+    "metaTitle": "Writing — Magnus Mägi",
+    "metaDescription": "Notes by Magnus Mägi on building software, founders, and tools.",
+    "eyebrow": "Writing",
+    "heading": "Notes from the workshop",
+    "subhead": "Short pieces on building products, the tools I use, and what I learn along the way.",
+    "empty": "No posts yet — but I'm drafting.",
+    "backToList": "All notes",
+    "backToHome": "Back home",
+    "readingTime": "{minutes} min read",
+    "tagArchiveHeading": "Tagged with {tag}",
+    "tagArchiveSubhead": "Posts that share the same theme.",
+    "tagArchiveEmpty": "No posts under this tag yet.",
+    "tagsLabel": "Tagged"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "et": "Estonian"
+  }
+}

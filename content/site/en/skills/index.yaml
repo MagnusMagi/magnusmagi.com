@@ -1,0 +1,14 @@
+eyebrow: Toolkit
+heading: Things I work with
+product:
+  title: Product & design
+  items: Product strategy · UX · Figma · Prototyping · User research
+frontend:
+  title: Frontend
+  items: TypeScript · React · Next.js · Tailwind · SwiftUI
+backend:
+  title: Backend & infra
+  items: Node.js · Firebase · Postgres · Cloudflare · Vercel
+ai:
+  title: AI tooling
+  items: Claude · OpenAI · Agent workflows · Evals · RAG
