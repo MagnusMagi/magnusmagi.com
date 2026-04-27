@@ -52,6 +52,12 @@ export async function getFooter(locale: Locale) {
   return readSingleton(`footer${suffix(locale)}` as "footerEn" | "footerEt");
 }
 
+export async function getTestimonials(locale: Locale) {
+  return readSingleton(
+    `testimonials${suffix(locale)}` as "testimonialsEn" | "testimonialsEt",
+  );
+}
+
 export async function getExperienceMeta(locale: Locale) {
   return readSingleton(
     `experienceMeta${suffix(locale)}` as "experienceMetaEn" | "experienceMetaEt",
@@ -119,6 +125,7 @@ export interface SiteContent {
   experience: ExperienceEntry[];
   workMeta: Awaited<ReturnType<typeof getWorkMeta>>;
   work: WorkEntry[];
+  testimonials: Awaited<ReturnType<typeof getTestimonials>>;
   contact: Awaited<ReturnType<typeof getContact>>;
   footer: Awaited<ReturnType<typeof getFooter>>;
 }
@@ -134,6 +141,7 @@ export async function getSiteContent(locale: Locale): Promise<SiteContent> {
     experience,
     workMeta,
     work,
+    testimonials,
     contact,
     footer,
   ] = await Promise.all([
@@ -146,6 +154,7 @@ export async function getSiteContent(locale: Locale): Promise<SiteContent> {
     getExperience(locale),
     getWorkMeta(locale),
     getWork(locale),
+    getTestimonials(locale),
     getContact(locale),
     getFooter(locale),
   ]);
@@ -159,6 +168,7 @@ export async function getSiteContent(locale: Locale): Promise<SiteContent> {
     experience,
     workMeta,
     work,
+    testimonials,
     contact,
     footer,
   };

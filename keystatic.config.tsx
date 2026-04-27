@@ -131,6 +131,22 @@ const sectionHeaderSchema = {
   heading: fields.text({ label: "Heading" }),
 };
 
+const testimonialsSchema = {
+  eyebrow: fields.text({ label: "Eyebrow" }),
+  heading: fields.text({ label: "Heading" }),
+  items: fields.array(
+    fields.object({
+      quote: fields.text({ label: "Quote", multiline: true }),
+      author: fields.text({ label: "Author (initials or name)" }),
+      role: fields.text({ label: "Role / org" }),
+    }),
+    {
+      label: "Testimonials",
+      itemLabel: (props) => props.fields.author.value,
+    },
+  ),
+};
+
 const contactSchema = {
   eyebrow: fields.text({ label: "Eyebrow" }),
   heading: fields.text({ label: "Heading" }),
@@ -191,6 +207,7 @@ export default config({
         "experienceEn",
         "workMetaEn",
         "workEn",
+        "testimonialsEn",
         "contactEn",
         "footerEn",
       ],
@@ -204,6 +221,7 @@ export default config({
         "experienceEt",
         "workMetaEt",
         "workEt",
+        "testimonialsEt",
         "contactEt",
         "footerEt",
       ],
@@ -276,6 +294,8 @@ export default config({
     experienceMetaEt: siteSection("Experience meta", "et", sectionHeaderSchema),
     workMetaEn: siteSection("Work meta", "en", sectionHeaderSchema),
     workMetaEt: siteSection("Work meta", "et", sectionHeaderSchema),
+    testimonialsEn: siteSection("Testimonials", "en", testimonialsSchema),
+    testimonialsEt: siteSection("Testimonials", "et", testimonialsSchema),
     contactEn: siteSection("Contact", "en", contactSchema),
     contactEt: siteSection("Contact", "et", contactSchema),
     footerEn: siteSection("Footer", "en", footerSchema),

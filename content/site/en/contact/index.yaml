@@ -3,7 +3,5 @@ heading: Let's talk.
 body: Email is the fastest way to reach me. I read everything, and I try to reply within a couple of days.
 email: hello@magnusmagi.com
 emailCta: Send me an email
-secondary: Most of my open work lives on GitHub.
-social:
-  - label: GitHub
-    href: https://github.com/MagnusMagi
+secondary: ""
+social: []

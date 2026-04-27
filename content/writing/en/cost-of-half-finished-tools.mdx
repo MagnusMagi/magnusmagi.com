@@ -1,0 +1,42 @@
+---
+title: "The cost of half-finished tools"
+description: "Notes on cleaning up the personal AI tooling drawer that grew sideways for a year."
+publishedAt: "2026-02-10"
+tags: ["ai", "tooling", "engineering"]
+---
+
+I spent a Sunday in February throwing away most of my own AI tooling. Not
+because the ideas were bad. Because I had eleven half-finished tools and
+used three of them.
+
+## Why so many
+
+Each tool started honest. A small script for an evals run. A wrapper for
+Claude Code on a specific repo. A retrieval helper for a one-off project.
+None of them grew because none of them needed to. They sat at v0.3 and
+stopped.
+
+The cost is not maintenance. The cost is the cognitive overhead of
+remembering they exist, and the small moment of guilt every time I open
+the folder.
+
+## What I kept
+
+Three things, all daily drivers:
+
+- A wrapper around Claude Code that loads my repo conventions and a few
+  preferred patterns.
+- A small evals harness that catches regressions in two production prompts.
+- A scratchpad CLI that takes a problem in plain English and dumps the
+  relevant files into a temp directory for me to think with.
+
+## What I threw away
+
+Everything else. Including two tools I had been "about to ship" for nine
+months.
+
+## The rule going forward
+
+If a tool sits at v0.3 for two months, it gets one of two outcomes: a real
+v1, or the trash. Anything in between is a tax I pay for the rest of the
+year.

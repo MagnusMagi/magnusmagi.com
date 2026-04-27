@@ -1,0 +1,15 @@
+eyebrow: Soovitused
+heading: Mida asutajad ütlevad
+items:
+  - quote: "Magnusil on haruldane oskus anda just sellist nõu, mida vajad — ka siis, kui see pole see, mida tahad kuulda. Kolm nädalat tema aega säästis meid kolm kuud."
+    author: M.K.
+    role: Varase faasi tarbija-iOS-i rakenduse asutaja
+  - quote: "Tõime Magnuse ühe tehnilise värbamise jaoks ja kasutasime teda järgmise kahe puhul samuti. Iga signaal, mille ta intervjuudel märkis, kinnitas end mõne kuu jooksul."
+    author: L.T.
+    role: A-seeria arendajatööriistade ettevõtte CTO
+  - quote: "Ootasin inseneri. Sain disaineri, tooteinimese ja inseneri. Esimene prototüüp, mille koos välja saatsime, määras kogu toote visuaalse keele."
+    author: A.B.
+    role: Tallinna fintech-i asutaja
+  - quote: "Ta on ainus nõustaja minu kõnede nimekirjas, kellega pean üha vähem kõnesid pidama. Ta õpetab sulle teda vähem vajama."
+    author: R.S.
+    role: Istanbuli tarbijaturuplatsi asutaja

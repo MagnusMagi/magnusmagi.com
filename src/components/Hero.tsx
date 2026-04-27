@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import type { SiteContent } from "@/content/site";
 
 interface HeroProps {
@@ -27,14 +29,26 @@ export function Hero({ data }: HeroProps) {
     <section className="border-b border-border/60">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20">
         <div className="flex flex-col gap-10">
-          <div className="flex items-center gap-2 text-xs font-medium text-muted">
-            <span className="relative inline-flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            <span className="font-mono uppercase tracking-[0.18em]">
-              {data.available}
-            </span>
+          <div className="flex items-center gap-4">
+            <div className="relative h-14 w-14 overflow-hidden rounded-full border border-border bg-subtle">
+              <Image
+                src="/magnus.jpg"
+                alt={data.name}
+                fill
+                sizes="56px"
+                priority
+                className="object-cover"
+              />
+            </div>
+            <div className="flex items-center gap-2 text-xs font-medium text-muted">
+              <span className="relative inline-flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="font-mono uppercase tracking-[0.18em]">
+                {data.available}
+              </span>
+            </div>
           </div>
 
           <div className="flex flex-col gap-6">

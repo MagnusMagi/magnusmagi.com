@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Now } from "@/components/Now";
 import { Skills } from "@/components/Skills";
+import { Testimonials } from "@/components/Testimonials";
 import { Work } from "@/components/Work";
 import { getSiteContent } from "@/content/site";
 import type { Locale } from "@/i18n/routing";
@@ -66,6 +67,7 @@ export default async function HomePage({ params }: PageProps) {
           heading={content.workMeta.heading}
           entries={content.work}
         />
+        <Testimonials data={content.testimonials} />
         <Contact data={content.contact} />
       </main>
       <Footer data={content.footer} />

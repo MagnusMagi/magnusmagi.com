@@ -1,0 +1,15 @@
+eyebrow: Testimonials
+heading: What founders say
+items:
+  - quote: "Magnus has the rare gift of giving you exactly the advice you need, even when it's the advice you didn't want to hear. Three weeks of his time saved us three months."
+    author: M.K.
+    role: Founder, early-stage consumer iOS app
+  - quote: "We brought Magnus in for one technical hire and ended up using him for the next two as well. Every signal he flagged in interviews proved out within months."
+    author: L.T.
+    role: CTO, Series A developer-tools company
+  - quote: "I expected an engineer. I got a designer, a product person, and an engineer. The first prototype we shipped together set the visual language for the rest of the product."
+    author: A.B.
+    role: Founder, Tallinn-based fintech
+  - quote: "He's the only advisor on my call list that I have to schedule fewer calls with, not more. He teaches you to need him less."
+    author: R.S.
+    role: Founder, Istanbul-based consumer marketplace
