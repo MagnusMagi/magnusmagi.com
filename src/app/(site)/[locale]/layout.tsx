@@ -1,9 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Nunito } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+
+const nunito = Nunito({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-nunito",
+  weight: ["400", "500", "600", "700"],
+});
 
 import { SkipLink } from "@/components/SkipLink";
 import { getMeta } from "@/content/site";
@@ -80,7 +87,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   return (
     <html
       lang={locale}
-      className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
+      className={`${nunito.variable} ${GeistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
         <NextIntlClientProvider>

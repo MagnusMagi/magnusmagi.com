@@ -16,7 +16,7 @@
   --color-subtle: var(--subtle);
   --color-border: var(--border);
   --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-nunito);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -61,7 +61,6 @@ section[id] {
 
 body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
