@@ -64,6 +64,9 @@ export async function generateMetadata({
       description: meta.description,
     },
     icons: {
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
       other: [
         {
           rel: "alternate",
