@@ -17,6 +17,23 @@ interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
 }
 
+const SITE_URL = "https://magnusmagi.com";
+
+function postUrl(locale: string, slug: string): string {
+  const prefix = locale === "en" ? "" : `/${locale}`;
+  return `${SITE_URL}${prefix}/writing/${slug}`;
+}
+
+function writingIndexUrl(locale: string): string {
+  const prefix = locale === "en" ? "" : `/${locale}`;
+  return `${SITE_URL}${prefix}/writing`;
+}
+
+function homeUrl(locale: string): string {
+  const prefix = locale === "en" ? "" : `/${locale}`;
+  return `${SITE_URL}${prefix}`;
+}
+
 export async function generateStaticParams() {
   const entries = await Promise.all(
     routing.locales.map(async (locale) => {
@@ -37,11 +54,18 @@ export async function generateMetadata({
   return {
     title: `${post.frontmatter.title} — Magnus Mägi`,
     description: post.frontmatter.description,
+    alternates: {
+      canonical: postUrl(locale, slug),
+    },
     openGraph: {
       type: "article",
       title: post.frontmatter.title,
       description: post.frontmatter.description,
       publishedTime: post.frontmatter.publishedAt,
+      url: postUrl(locale, slug),
+      authors: ["Magnus Mägi"],
+      tags: post.frontmatter.tags,
+      locale: locale === "et" ? "et_EE" : "en_US",
     },
   };
 }
@@ -57,8 +81,70 @@ export default async function WritingPostPage({ params }: PageProps) {
   ]);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    mainEntityOfPage: { "@type": "WebPage", "@id": postUrl(locale, slug) },
+    headline: post.frontmatter.title,
+    description: post.frontmatter.description,
+    datePublished: post.frontmatter.publishedAt,
+    dateModified: post.frontmatter.publishedAt,
+    inLanguage: locale === "et" ? "et-EE" : "en-US",
+    keywords: post.frontmatter.tags.join(", "),
+    author: {
+      "@type": "Person",
+      name: "Magnus Mägi",
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Magnus Mägi",
+      url: SITE_URL,
+    },
+    ...(post.frontmatter.coverImage
+      ? {
+          image: `${SITE_URL}/writing-images/${post.frontmatter.coverImage}`,
+        }
+      : {}),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: homeUrl(locale),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Writing",
+        item: writingIndexUrl(locale),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.frontmatter.title,
+        item: postUrl(locale, slug),
+      },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Header />
       <main id="main" className="flex-1">
         <article className="mx-auto w-full max-w-3xl px-6 py-20">
