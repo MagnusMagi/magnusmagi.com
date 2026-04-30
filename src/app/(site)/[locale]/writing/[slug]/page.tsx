@@ -8,7 +8,6 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
-import { AuthorBio } from "@/components/AuthorBio";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { CodeCopyButtons } from "@/components/CodeCopyButtons";
 import { Footer } from "@/components/Footer";
@@ -375,8 +374,6 @@ export default async function WritingPostPage({ params }: PageProps) {
           ) : null}
 
           <RelatedPosts posts={related} locale={locale as Locale} />
-
-          <AuthorBio locale={locale as Locale} />
 
           {newerPost || olderPost ? (
             <nav
