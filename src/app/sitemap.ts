@@ -54,6 +54,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
+  const designSystemsEntries: MetadataRoute.Sitemap = routing.locales.map(
+    (locale) => ({
+      url: localeUrl(locale, "/design-systems"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.4,
+      alternates: { languages: alternates("/design-systems") },
+    }),
+  );
+
   const dataByLocale = await Promise.all(
     routing.locales.map(async (locale) => ({
       locale,
@@ -86,6 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...homeEntries,
     ...writingIndexEntries,
     ...playEntries,
+    ...designSystemsEntries,
     ...postEntries,
     ...tagEntries,
   ];

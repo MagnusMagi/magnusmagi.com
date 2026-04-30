@@ -171,6 +171,7 @@ const contactSchema = {
 
 const footerSchema = {
   tagline: fields.text({ label: "Tagline" }),
+  designSystems: fields.text({ label: "Design systems link label" }),
   viewSource: fields.text({ label: "View source link label" }),
 };
 

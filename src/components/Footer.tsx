@@ -1,4 +1,5 @@
 import type { SiteContent } from "@/content/site";
+import { Link } from "@/i18n/navigation";
 
 const SOURCE_URL = "https://github.com/MagnusMagi/magnusmagi.com";
 
@@ -15,7 +16,13 @@ export function Footer({ data }: FooterProps) {
         <span className="font-mono uppercase tracking-[0.18em]">
           {data.tagline}
         </span>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <Link
+            href="/design-systems"
+            className="font-mono uppercase tracking-[0.18em] underline-offset-4 transition-colors hover:text-accent hover:underline"
+          >
+            {data.designSystems}
+          </Link>
           <a
             href={SOURCE_URL}
             target="_blank"
