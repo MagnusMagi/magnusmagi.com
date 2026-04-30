@@ -13,6 +13,7 @@ const nunito = Nunito({
 });
 
 import { SkipLink } from "@/components/SkipLink";
+import { WebMcpProvider } from "@/components/WebMcpProvider";
 import { getMeta } from "@/content/site";
 import { routing, type Locale } from "@/i18n/routing";
 import "../../globals.css";
@@ -95,6 +96,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       <body className="min-h-full bg-background text-foreground">
         <NextIntlClientProvider>
           <SkipLink />
+          <WebMcpProvider locale={locale as Locale} />
           {children}
         </NextIntlClientProvider>
       </body>

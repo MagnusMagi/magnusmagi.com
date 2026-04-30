@@ -40,7 +40,7 @@ export default function proxy(request: NextRequest) {
   }
 
   if (
-    request.method === "GET" &&
+    (request.method === "GET" || request.method === "HEAD") &&
     isMarkdownEligible(pathname) &&
     prefersMarkdown(request.headers.get("accept"))
   ) {
