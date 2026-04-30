@@ -9,11 +9,14 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { CodeCopyButtons } from "@/components/CodeCopyButtons";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { PostShare } from "@/components/PostShare";
 import { PostTranslationProvider } from "@/components/PostTranslationProvider";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import { TagChip } from "@/components/TagChip";
-import { getFooter } from "@/content/site";
+import { getContact, getFooter } from "@/content/site";
 import { getAllPosts, getPostBySlug } from "@/content/writing";
 import type { Locale } from "@/i18n/routing";
 import { formatDate } from "@/lib/format";
@@ -100,10 +103,11 @@ export default async function WritingPostPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: "Writing" });
   const tBreadcrumb = await getTranslations({ locale, namespace: "Breadcrumb" });
-  const [post, footer, allPosts] = await Promise.all([
+  const [post, footer, allPosts, contact] = await Promise.all([
     getPostBySlug(locale, slug),
     getFooter(locale as Locale),
     getAllPosts(locale),
+    getContact(locale as Locale),
   ]);
   if (!post) notFound();
 
@@ -193,6 +197,7 @@ export default async function WritingPostPage({ params }: PageProps) {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      <ReadingProgress />
       <PostTranslationProvider value={{ basePath: "/writing", slugs: translationSlugs }}>
         <Header />
       </PostTranslationProvider>
@@ -253,6 +258,7 @@ export default async function WritingPostPage({ params }: PageProps) {
           ) : null}
 
           <div className="prose mt-12">
+            <CodeCopyButtons />
             <MDXRemote
               source={post.content}
               options={{
@@ -284,8 +290,22 @@ export default async function WritingPostPage({ params }: PageProps) {
             />
           </div>
 
+          <section
+            aria-label={t("shareLabel")}
+            className="mt-16 flex flex-col gap-3 border-t border-border/60 pt-8"
+          >
+            <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted">
+              {t("shareLabel")}
+            </span>
+            <PostShare
+              url={postUrl(locale, slug)}
+              title={post.frontmatter.title}
+              emailTo={contact.email}
+            />
+          </section>
+
           {post.frontmatter.tags.length > 0 ? (
-            <footer className="mt-16 flex flex-col gap-3 border-t border-border/60 pt-8">
+            <footer className="mt-12 flex flex-col gap-3 border-t border-border/60 pt-8">
               <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted">
                 {t("tagsLabel")}
               </span>

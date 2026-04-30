@@ -59,7 +59,12 @@
     "older": "Vanem",
     "translationAvailable": "Loe seda keeles {language}",
     "languageEt": "eesti",
-    "languageEn": "inglise"
+    "languageEn": "inglise",
+    "shareOnX": "Jaga X-is",
+    "emailReply": "Vasta e-postiga",
+    "copyLink": "Kopeeri link",
+    "linkCopied": "Link kopeeritud",
+    "shareLabel": "Jaga seda postitust"
   },
   "LanguageSwitcher": {
     "label": "Keel",

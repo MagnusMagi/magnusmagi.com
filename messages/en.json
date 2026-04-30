@@ -59,7 +59,12 @@
     "older": "Older",
     "translationAvailable": "Read this in {language}",
     "languageEt": "Estonian",
-    "languageEn": "English"
+    "languageEn": "English",
+    "shareOnX": "Share on X",
+    "emailReply": "Email reply",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "shareLabel": "Share this post"
   },
   "LanguageSwitcher": {
     "label": "Language",
