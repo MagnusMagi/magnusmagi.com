@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
 import { ImageResponse } from "next/og";
 
 import { getPostBySlug } from "@/content/writing";
@@ -7,6 +10,20 @@ export const runtime = "nodejs";
 export const alt = "Magnus Mägi — Writing";
 export const size = { width: 1200, height: 630 } as const;
 export const contentType = "image/png";
+
+async function loadGeistMono(weight: "Regular" | "SemiBold"): Promise<ArrayBuffer> {
+  const filePath = path.join(
+    process.cwd(),
+    "node_modules",
+    "geist",
+    "dist",
+    "fonts",
+    "geist-mono",
+    `GeistMono-${weight}.ttf`,
+  );
+  const buf = await readFile(filePath);
+  return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
+}
 
 interface OgProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -29,6 +46,11 @@ export default async function PostOpengraphImage({ params }: OgProps) {
   const publishedAt = post?.frontmatter.publishedAt;
   const tags = post?.frontmatter.tags ?? [];
 
+  const [regular, semibold] = await Promise.all([
+    loadGeistMono("Regular"),
+    loadGeistMono("SemiBold"),
+  ]);
+
   return new ImageResponse(
     (
       <div
@@ -41,7 +63,7 @@ export default async function PostOpengraphImage({ params }: OgProps) {
           padding: "80px",
           background: "#0b0b0a",
           color: "#f4f1ea",
-          fontFamily: "system-ui, -apple-system, sans-serif",
+          fontFamily: "Geist Mono",
         }}
       >
         <div
@@ -113,6 +135,12 @@ export default async function PostOpengraphImage({ params }: OgProps) {
         </div>
       </div>
     ),
-    { ...size },
+    {
+      ...size,
+      fonts: [
+        { name: "Geist Mono", data: regular, style: "normal", weight: 400 },
+        { name: "Geist Mono", data: semibold, style: "normal", weight: 600 },
+      ],
+    },
   );
 }

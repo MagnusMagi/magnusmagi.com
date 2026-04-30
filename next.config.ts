@@ -68,7 +68,11 @@ const nextConfig: NextConfig = {
   },
   outputFileTracingIncludes: {
     "/[locale]": ["./content/**/*"],
-    "/[locale]/writing/**": ["./content/**/*"],
+    "/[locale]/writing/**": [
+      "./content/**/*",
+      "./node_modules/geist/dist/fonts/geist-mono/GeistMono-Regular.ttf",
+      "./node_modules/geist/dist/fonts/geist-mono/GeistMono-SemiBold.ttf",
+    ],
     "/feed.xml": ["./content/**/*"],
     "/et/feed.xml": ["./content/**/*"],
     "/sitemap.xml": ["./content/**/*"],

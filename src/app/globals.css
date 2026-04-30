@@ -343,3 +343,92 @@ a:focus-visible {
     animation: none;
   }
 }
+
+/* Lead paragraph: first MDX paragraph after the title block */
+.prose > p:first-of-type {
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.prose > p:first-of-type::first-letter {
+  font-size: 2.85em;
+  float: left;
+  line-height: 0.9;
+  margin: 0.05em 0.08em 0 0;
+  color: var(--accent);
+  font-weight: 600;
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .prose > p:first-of-type::first-letter {
+    transition: color 200ms ease;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  nav,
+  aside,
+  [aria-label="Other posts"],
+  [aria-label="Related notes"],
+  [aria-label="About the author"],
+  [aria-label="Share this post"],
+  [aria-label="Jaga seda postitust"],
+  [aria-label="Seotud märkmed"],
+  [aria-label="Autori kohta"],
+  [data-copy-code],
+  details summary {
+    display: none !important;
+  }
+
+  details {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  article {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .prose {
+    font-size: 11pt;
+    line-height: 1.5;
+    color: black;
+  }
+
+  .prose a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  .prose a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+
+  .prose pre {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    page-break-inside: avoid;
+  }
+
+  .prose h2,
+  .prose h3 {
+    page-break-after: avoid;
+  }
+
+  .prose img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+}

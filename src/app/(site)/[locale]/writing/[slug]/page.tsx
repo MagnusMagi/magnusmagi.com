@@ -140,7 +140,6 @@ export default async function WritingPostPage({ params }: PageProps) {
       ? allPosts[currentIndex + 1]
       : null;
 
-  const ogImageUrl = `${SITE_URL}${locale === "en" ? "" : `/${locale}`}/writing/${slug}/opengraph-image`;
   const dateModified = post.frontmatter.updatedAt ?? post.frontmatter.publishedAt;
   const publisherLogo = `${SITE_URL}/icon.svg`;
 
@@ -174,23 +173,18 @@ export default async function WritingPostPage({ params }: PageProps) {
         height: 512,
       },
     },
-    image: post.frontmatter.coverImage
-      ? [
-          {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/writing-images/${post.frontmatter.coverImage}`,
-            width: 1600,
-            height: 900,
-          },
-        ]
-      : [
-          {
-            "@type": "ImageObject",
-            url: ogImageUrl,
-            width: 1200,
-            height: 630,
-          },
-        ],
+    ...(post.frontmatter.coverImage
+      ? {
+          image: [
+            {
+              "@type": "ImageObject",
+              url: `${SITE_URL}/writing-images/${post.frontmatter.coverImage}`,
+              width: 1600,
+              height: 900,
+            },
+          ],
+        }
+      : {}),
     ...(post.frontmatter.originalLocale &&
     post.frontmatter.originalLocale !== locale &&
     post.frontmatter.translations[post.frontmatter.originalLocale]
