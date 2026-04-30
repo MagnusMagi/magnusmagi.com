@@ -22,13 +22,10 @@ export function LanguageSwitcher() {
     startTransition(() => {
       if (postTranslation) {
         const targetSlug = postTranslation.slugs[next];
-        if (targetSlug) {
-          const prefix = next === routing.defaultLocale ? "" : `/${next}`;
-          router.push(`${prefix}${postTranslation.basePath}/${targetSlug}`);
-          return;
-        }
-        const indexPrefix = next === routing.defaultLocale ? "" : `/${next}`;
-        router.push(`${indexPrefix}${postTranslation.basePath}`);
+        const target = targetSlug
+          ? `${postTranslation.basePath}/${targetSlug}`
+          : postTranslation.basePath;
+        router.replace(target as Parameters<typeof router.replace>[0], { locale: next });
         return;
       }
       router.replace(
