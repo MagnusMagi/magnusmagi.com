@@ -31,10 +31,10 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale, tag } = await params;
-  const decodedTag = decodeURIComponent(tag);
+  const canonicalTag = decodeURIComponent(tag);
   const t = await getTranslations({ locale, namespace: "Writing" });
   return {
-    title: `#${decodedTag} — ${t("metaTitle")}`,
+    title: `#${canonicalTag} — ${t("metaTitle")}`,
     description: t("tagArchiveSubhead"),
   };
 }
@@ -43,17 +43,19 @@ export default async function TagArchivePage({ params }: PageProps) {
   const { locale, tag } = await params;
   setRequestLocale(locale);
 
-  const decodedTag = decodeURIComponent(tag);
+  const requestedTag = decodeURIComponent(tag);
   const t = await getTranslations({ locale, namespace: "Writing" });
-  const [posts, footer] = await Promise.all([
-    getPostsByTag(locale, decodedTag),
+  const [posts, allTags, footer] = await Promise.all([
+    getPostsByTag(locale, requestedTag),
+    getAllTags(locale),
     getFooter(locale as Locale),
   ]);
 
-  if (posts.length === 0) {
-    const tags = await getAllTags(locale);
-    if (!tags.some((entry) => entry.tag === decodedTag)) notFound();
-  }
+  const canonicalEntry = allTags.find(
+    (entry) => entry.tag.toLowerCase() === requestedTag.toLowerCase(),
+  );
+  if (!canonicalEntry) notFound();
+  const canonicalTag = canonicalEntry.tag;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -70,7 +72,7 @@ export default async function TagArchivePage({ params }: PageProps) {
             <div className="mt-6">
               <SectionHeading
                 eyebrow={t("eyebrow")}
-                heading={t("tagArchiveHeading", { tag: decodedTag })}
+                heading={t("tagArchiveHeading", { tag: canonicalTag })}
               />
             </div>
             <p className="max-w-2xl text-pretty text-base leading-relaxed text-muted">

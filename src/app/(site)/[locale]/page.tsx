@@ -6,6 +6,7 @@ import { Experience } from "@/components/Experience";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { LatestWriting } from "@/components/LatestWriting";
 import { Now } from "@/components/Now";
 import { Skills } from "@/components/Skills";
 import { Testimonials } from "@/components/Testimonials";
@@ -68,6 +69,7 @@ export default async function HomePage({ params }: PageProps) {
           entries={content.work}
         />
         <Testimonials data={content.testimonials} />
+        <LatestWriting locale={locale as Locale} />
         <Contact data={content.contact} />
       </main>
       <Footer data={content.footer} />

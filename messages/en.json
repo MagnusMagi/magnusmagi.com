@@ -216,5 +216,9 @@
       "hiddenAria": "Hidden cell",
       "restart": "Play again"
     }
+  },
+  "Breadcrumb": {
+    "home": "Home",
+    "writing": "Writing"
   }
 }

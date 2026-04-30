@@ -1,3 +1,5 @@
+import { getLocale, getTranslations } from "next-intl/server";
+
 import type { SiteContent } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 
@@ -7,8 +9,13 @@ interface FooterProps {
   data: SiteContent["footer"];
 }
 
-export function Footer({ data }: FooterProps) {
+export async function Footer({ data }: FooterProps) {
   const year = new Date().getFullYear();
+  const [tNav, locale] = await Promise.all([
+    getTranslations("Nav"),
+    getLocale(),
+  ]);
+  const feedHref = locale === "et" ? "/et/feed.xml" : "/feed.xml";
 
   return (
     <footer className="py-10">
@@ -17,6 +24,18 @@ export function Footer({ data }: FooterProps) {
           {data.tagline}
         </span>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <Link
+            href="/writing"
+            className="font-mono uppercase tracking-[0.18em] underline-offset-4 transition-colors hover:text-accent hover:underline"
+          >
+            {tNav("writing")}
+          </Link>
+          <a
+            href={feedHref}
+            className="font-mono uppercase tracking-[0.18em] underline-offset-4 transition-colors hover:text-accent hover:underline"
+          >
+            RSS
+          </a>
           <Link
             href="/design-systems"
             className="font-mono uppercase tracking-[0.18em] underline-offset-4 transition-colors hover:text-accent hover:underline"

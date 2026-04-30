@@ -12,6 +12,8 @@ const body = [
   "Content-Signal: ai-train=yes, search=yes, ai-input=yes",
   "",
   `Sitemap: ${BASE_URL}/sitemap.xml`,
+  `Sitemap: ${BASE_URL}/feed.xml`,
+  `Sitemap: ${BASE_URL}/et/feed.xml`,
   `Host: ${BASE_URL}`,
   "",
 ].join("\n");

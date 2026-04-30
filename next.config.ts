@@ -67,9 +67,12 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   outputFileTracingIncludes: {
+    "/[locale]": ["./content/**/*"],
     "/[locale]/writing/**": ["./content/**/*"],
     "/feed.xml": ["./content/**/*"],
+    "/et/feed.xml": ["./content/**/*"],
     "/sitemap.xml": ["./content/**/*"],
+    "/api/markdown": ["./content/**/*"],
   },
   async headers() {
     return [

@@ -30,6 +30,19 @@ const writingSchema = {
     label: "Cover alt text",
     description: "Required when a cover image is set.",
   }),
+  translations: fields.object(
+    {
+      en: fields.text({
+        label: "EN slug",
+        description: "Slug of this post's English version (omit on EN entries).",
+      }),
+      et: fields.text({
+        label: "ET slug",
+        description: "Slug of this post's Estonian version (omit on ET entries).",
+      }),
+    },
+    { label: "Translations" },
+  ),
   content: fields.mdx({
     label: "Content",
     options: {

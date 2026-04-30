@@ -7,19 +7,23 @@ import { z } from "zod";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content", "writing");
 
-const PostFrontmatter = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
-  publishedAt: z
-    .string()
-    .refine((value) => !Number.isNaN(Date.parse(value)), {
-      message: "publishedAt must be an ISO date string",
-    }),
-  tags: z.array(z.string()).optional().default([]),
-  draft: z.boolean().optional().default(false),
-  coverImage: z.string().optional(),
-  coverAlt: z.string().optional(),
-});
+const PostFrontmatter = z
+  .object({
+    title: z.string().min(1),
+    description: z.string().min(1),
+    publishedAt: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "publishedAt must be YYYY-MM-DD"),
+    tags: z.array(z.string()).optional().default([]),
+    draft: z.boolean().optional().default(false),
+    coverImage: z.string().optional(),
+    coverAlt: z.string().optional(),
+    translations: z.record(z.string(), z.string()).optional().default({}),
+  })
+  .refine((data) => !data.coverImage || (data.coverAlt && data.coverAlt.length > 0), {
+    message: "coverAlt is required when coverImage is set",
+    path: ["coverAlt"],
+  });
 
 export type PostFrontmatterT = z.infer<typeof PostFrontmatter>;
 
@@ -141,6 +145,9 @@ export const getAllTags = cache(
 export const getPostsByTag = cache(
   async (locale: string, tag: string): Promise<Post[]> => {
     const posts = await getAllPosts(locale);
-    return posts.filter((post) => post.frontmatter.tags.includes(tag));
+    const needle = tag.toLowerCase();
+    return posts.filter((post) =>
+      post.frontmatter.tags.some((t) => t.toLowerCase() === needle),
+    );
   },
 );

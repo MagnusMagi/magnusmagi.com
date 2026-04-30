@@ -216,5 +216,9 @@
       "hiddenAria": "Peidetud ruut",
       "restart": "Mängi uuesti"
     }
+  },
+  "Breadcrumb": {
+    "home": "Avaleht",
+    "writing": "Kirjutised"
   }
 }

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import rehypePrettyCode from "rehype-pretty-code";
+import remarkGfm from "remark-gfm";
 
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -52,11 +54,21 @@ export async function generateMetadata({
   const post = await getPostBySlug(locale, slug);
   if (!post) return {};
 
+  const languages: Record<string, string> = { [locale]: postUrl(locale, slug) };
+  for (const [otherLocale, otherSlug] of Object.entries(post.frontmatter.translations)) {
+    languages[otherLocale] = postUrl(otherLocale, otherSlug);
+  }
+
+  const alternateLocales = Object.keys(post.frontmatter.translations)
+    .filter((other) => other !== locale)
+    .map((other) => (other === "et" ? "et_EE" : "en_US"));
+
   return {
     title: `${post.frontmatter.title} — Magnus Mägi`,
     description: post.frontmatter.description,
     alternates: {
       canonical: postUrl(locale, slug),
+      languages,
     },
     openGraph: {
       type: "article",
@@ -67,6 +79,7 @@ export async function generateMetadata({
       authors: ["Magnus Mägi"],
       tags: post.frontmatter.tags,
       locale: locale === "et" ? "et_EE" : "en_US",
+      alternateLocale: alternateLocales,
     },
   };
 }
@@ -76,6 +89,7 @@ export default async function WritingPostPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "Writing" });
+  const tBreadcrumb = await getTranslations({ locale, namespace: "Breadcrumb" });
   const [post, footer, allPosts] = await Promise.all([
     getPostBySlug(locale, slug),
     getFooter(locale as Locale),
@@ -125,13 +139,13 @@ export default async function WritingPostPage({ params }: PageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Home",
+        name: tBreadcrumb("home"),
         item: homeUrl(locale),
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Writing",
+        name: tBreadcrumb("writing"),
         item: writingIndexUrl(locale),
       },
       {
@@ -194,7 +208,23 @@ export default async function WritingPostPage({ params }: PageProps) {
           ) : null}
 
           <div className="prose mt-12">
-            <MDXRemote source={post.content} />
+            <MDXRemote
+              source={post.content}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                  rehypePlugins: [
+                    [
+                      rehypePrettyCode,
+                      {
+                        theme: { light: "github-light", dark: "github-dark" },
+                        keepBackground: false,
+                      },
+                    ],
+                  ],
+                },
+              }}
+            />
           </div>
 
           {post.frontmatter.tags.length > 0 ? (

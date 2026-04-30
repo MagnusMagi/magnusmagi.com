@@ -26,6 +26,15 @@ const linkset = {
         { href: "https://www.rssboard.org/rss-specification", type: "text/html" },
       ],
       type: "application/rss+xml",
+      hreflang: ["en"],
+    },
+    {
+      anchor: `${BASE}/et/feed.xml`,
+      "service-desc": [
+        { href: "https://www.rssboard.org/rss-specification", type: "text/html" },
+      ],
+      type: "application/rss+xml",
+      hreflang: ["et"],
     },
     {
       anchor: `${BASE}/sitemap.xml`,

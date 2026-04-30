@@ -72,7 +72,7 @@ export async function generateMetadata({
         {
           rel: "alternate",
           type: "application/rss+xml",
-          url: "/feed.xml",
+          url: locale === "et" ? "/et/feed.xml" : "/feed.xml",
         },
       ],
     },
