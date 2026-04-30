@@ -68,7 +68,8 @@
     "related": "Seotud märkmed",
     "toc": "Sisukord",
     "aboutAuthor": "Autori kohta",
-    "aboutMore": "Rohkem Magnusest"
+    "aboutMore": "Rohkem Magnusest",
+    "updatedAt": "Värskendatud {date}"
   },
   "LanguageSwitcher": {
     "label": "Keel",

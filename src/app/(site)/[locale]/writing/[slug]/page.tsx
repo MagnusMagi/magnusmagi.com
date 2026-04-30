@@ -140,16 +140,24 @@ export default async function WritingPostPage({ params }: PageProps) {
       ? allPosts[currentIndex + 1]
       : null;
 
+  const ogImageUrl = `${SITE_URL}${locale === "en" ? "" : `/${locale}`}/writing/${slug}/opengraph-image`;
+  const dateModified = post.frontmatter.updatedAt ?? post.frontmatter.publishedAt;
+  const publisherLogo = `${SITE_URL}/icon.svg`;
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     mainEntityOfPage: { "@type": "WebPage", "@id": postUrl(locale, slug) },
     headline: post.frontmatter.title,
     description: post.frontmatter.description,
-    datePublished: post.frontmatter.publishedAt,
-    dateModified: post.frontmatter.publishedAt,
+    datePublished: `${post.frontmatter.publishedAt}T00:00:00Z`,
+    dateModified: `${dateModified}T00:00:00Z`,
     inLanguage: locale === "et" ? "et-EE" : "en-US",
     keywords: post.frontmatter.tags.join(", "),
+    wordCount: post.wordCount,
+    timeRequired: `PT${post.readingMinutes}M`,
+    isAccessibleForFree: true,
+    ...(post.frontmatter.section ? { articleSection: post.frontmatter.section } : {}),
     author: {
       "@type": "Person",
       name: "Magnus Mägi",
@@ -159,10 +167,43 @@ export default async function WritingPostPage({ params }: PageProps) {
       "@type": "Person",
       name: "Magnus Mägi",
       url: SITE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: publisherLogo,
+        width: 512,
+        height: 512,
+      },
     },
-    ...(post.frontmatter.coverImage
+    image: post.frontmatter.coverImage
+      ? [
+          {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/writing-images/${post.frontmatter.coverImage}`,
+            width: 1600,
+            height: 900,
+          },
+        ]
+      : [
+          {
+            "@type": "ImageObject",
+            url: ogImageUrl,
+            width: 1200,
+            height: 630,
+          },
+        ],
+    ...(post.frontmatter.originalLocale &&
+    post.frontmatter.originalLocale !== locale &&
+    post.frontmatter.translations[post.frontmatter.originalLocale]
       ? {
-          image: `${SITE_URL}/writing-images/${post.frontmatter.coverImage}`,
+          translationOfWork: {
+            "@type": "BlogPosting",
+            "@id": postUrl(
+              post.frontmatter.originalLocale,
+              post.frontmatter.translations[post.frontmatter.originalLocale]!,
+            ),
+            inLanguage:
+              post.frontmatter.originalLocale === "et" ? "et-EE" : "en-US",
+          },
         }
       : {}),
   };
@@ -223,13 +264,24 @@ export default async function WritingPostPage({ params }: PageProps) {
           />
           <header className="mt-8 flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
-              <time dateTime={post.frontmatter.publishedAt}>
+              <time dateTime={`${post.frontmatter.publishedAt}T00:00:00Z`}>
                 {formatDate(post.frontmatter.publishedAt, locale)}
               </time>
               <span aria-hidden="true">·</span>
               <span>
                 {t("readingTime", { minutes: post.readingMinutes })}
               </span>
+              {post.frontmatter.updatedAt &&
+              post.frontmatter.updatedAt !== post.frontmatter.publishedAt ? (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    {t("updatedAt", {
+                      date: formatDate(post.frontmatter.updatedAt, locale),
+                    })}
+                  </span>
+                </>
+              ) : null}
             </div>
             <h1
               id="post-title"

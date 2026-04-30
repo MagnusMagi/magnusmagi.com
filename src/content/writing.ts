@@ -14,16 +14,36 @@ const PostFrontmatter = z
     publishedAt: z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/, "publishedAt must be YYYY-MM-DD"),
+    updatedAt: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "updatedAt must be YYYY-MM-DD")
+      .optional(),
     tags: z.array(z.string()).optional().default([]),
     draft: z.boolean().optional().default(false),
     coverImage: z.string().optional(),
     coverAlt: z.string().optional(),
     translations: z.record(z.string(), z.string()).optional().default({}),
+    originalLocale: z
+      .preprocess(
+        (value) => (value === "" ? undefined : value),
+        z.enum(["en", "et"]).optional(),
+      )
+      .optional(),
+    section: z.string().optional(),
   })
   .refine((data) => !data.coverImage || (data.coverAlt && data.coverAlt.length > 0), {
     message: "coverAlt is required when coverImage is set",
     path: ["coverAlt"],
-  });
+  })
+  .refine(
+    (data) =>
+      !data.updatedAt ||
+      Date.parse(data.updatedAt) >= Date.parse(data.publishedAt),
+    {
+      message: "updatedAt cannot be earlier than publishedAt",
+      path: ["updatedAt"],
+    },
+  );
 
 export type PostFrontmatterT = z.infer<typeof PostFrontmatter>;
 
@@ -33,13 +53,44 @@ export interface Post {
   frontmatter: PostFrontmatterT;
   content: string;
   readingMinutes: number;
+  wordCount: number;
 }
 
-const WORDS_PER_MINUTE = 200;
+const WORDS_PER_MINUTE_PROSE = 220;
+const WORDS_PER_MINUTE_CODE = 80;
 
-function computeReadingMinutes(text: string): number {
-  const words = text.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+function partitionContent(text: string): { prose: string; code: string } {
+  let inFence = false;
+  const proseLines: string[] = [];
+  const codeLines: string[] = [];
+  for (const line of text.split("\n")) {
+    if (/^```/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) {
+      codeLines.push(line);
+    } else {
+      proseLines.push(
+        line.replace(/`[^`]*`/g, " ").replace(/[*_~]/g, " "),
+      );
+    }
+  }
+  return { prose: proseLines.join("\n"), code: codeLines.join("\n") };
+}
+
+function countWords(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function computeReadingStats(text: string): { wordCount: number; readingMinutes: number } {
+  const { prose, code } = partitionContent(text);
+  const proseWords = countWords(prose);
+  const codeWords = countWords(code);
+  const wordCount = proseWords + codeWords;
+  const minutes =
+    proseWords / WORDS_PER_MINUTE_PROSE + codeWords / WORDS_PER_MINUTE_CODE;
+  return { wordCount, readingMinutes: Math.max(1, Math.round(minutes)) };
 }
 
 async function readPost(locale: string, file: string): Promise<Post | null> {
@@ -54,12 +105,14 @@ async function readPost(locale: string, file: string): Promise<Post | null> {
       `Invalid frontmatter in ${locale}/${file}: ${parsed.error.message}`,
     );
   }
+  const stats = computeReadingStats(content);
   return {
     slug,
     locale,
     frontmatter: parsed.data,
     content,
-    readingMinutes: computeReadingMinutes(content),
+    readingMinutes: stats.readingMinutes,
+    wordCount: stats.wordCount,
   };
 }
 

@@ -11,6 +11,24 @@ const writingSchema = {
     label: "Published at",
     defaultValue: { kind: "today" },
   }),
+  updatedAt: fields.date({
+    label: "Updated at",
+    description: "Optional. Set when meaningfully revising a post.",
+  }),
+  section: fields.text({
+    label: "Section",
+    description: "Optional schema.org articleSection (e.g. 'Engineering').",
+  }),
+  originalLocale: fields.select({
+    label: "Original locale",
+    description: "Set if this post is a translation of another locale.",
+    options: [
+      { label: "(none)", value: "" },
+      { label: "English", value: "en" },
+      { label: "Estonian", value: "et" },
+    ],
+    defaultValue: "",
+  }),
   tags: fields.array(fields.text({ label: "Tag" }), {
     label: "Tags",
     itemLabel: (props) => props.value,

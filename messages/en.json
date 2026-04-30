@@ -68,7 +68,8 @@
     "related": "Related notes",
     "toc": "Contents",
     "aboutAuthor": "About the author",
-    "aboutMore": "More about Magnus"
+    "aboutMore": "More about Magnus",
+    "updatedAt": "Updated {date}"
   },
   "LanguageSwitcher": {
     "label": "Language",
