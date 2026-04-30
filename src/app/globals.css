@@ -89,6 +89,37 @@ body {
   margin-top: 1.25em;
 }
 
+.prose h2,
+.prose h3 {
+  scroll-margin-top: 6rem;
+}
+
+.prose h2 a.anchor,
+.prose h3 a.anchor {
+  display: inline-block;
+  margin-left: 0.4em;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.prose h2:hover a.anchor,
+.prose h3:hover a.anchor,
+.prose h2:focus-within a.anchor,
+.prose h3:focus-within a.anchor {
+  opacity: 1;
+}
+
+.prose h2 a.anchor:hover,
+.prose h3 a.anchor:hover,
+.prose h2 a.anchor:focus-visible,
+.prose h3 a.anchor:focus-visible {
+  color: var(--accent);
+  opacity: 1;
+}
+
 .prose h2 {
   font-size: 1.5rem;
   font-weight: 600;

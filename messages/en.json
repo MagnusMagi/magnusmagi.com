@@ -56,12 +56,16 @@
     "tagsLabel": "Tagged",
     "postNavLabel": "Other posts",
     "newer": "Newer",
-    "older": "Older"
+    "older": "Older",
+    "translationAvailable": "Read this in {language}",
+    "languageEt": "Estonian",
+    "languageEn": "English"
   },
   "LanguageSwitcher": {
     "label": "Language",
     "en": "English",
-    "et": "Estonian"
+    "et": "Estonian",
+    "missingTranslation": "Switch to {locale} (no translation for this page yet — goes to writing index)"
   },
   "DesignSystems": {
     "metaTitle": "Design Systems — Magnus Mägi",

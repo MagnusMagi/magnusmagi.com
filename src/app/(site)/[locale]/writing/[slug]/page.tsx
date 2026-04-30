@@ -3,11 +3,15 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { PostTranslationProvider } from "@/components/PostTranslationProvider";
 import { TagChip } from "@/components/TagChip";
 import { getFooter } from "@/content/site";
 import { getAllPosts, getPostBySlug } from "@/content/writing";
@@ -81,6 +85,12 @@ export async function generateMetadata({
       locale: locale === "et" ? "et_EE" : "en_US",
       alternateLocale: alternateLocales,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      creator: "@magnusmagi",
+    },
   };
 }
 
@@ -96,6 +106,20 @@ export default async function WritingPostPage({ params }: PageProps) {
     getAllPosts(locale),
   ]);
   if (!post) notFound();
+
+  const otherLocaleEntries = Object.entries(post.frontmatter.translations) as Array<[
+    Locale,
+    string,
+  ]>;
+  const translationSlugs: Partial<Record<Locale, string>> = { [locale as Locale]: slug };
+  for (const [otherLocale, otherSlug] of otherLocaleEntries) {
+    translationSlugs[otherLocale] = otherSlug;
+  }
+  const otherLocale = otherLocaleEntries.find(([l]) => l !== locale)?.[0];
+  const otherSlug = otherLocale ? translationSlugs[otherLocale] : undefined;
+  const translationLanguageLabel = otherLocale
+    ? t(otherLocale === "et" ? "languageEt" : "languageEn")
+    : null;
 
   const currentIndex = allPosts.findIndex((p) => p.slug === slug);
   const newerPost =
@@ -169,16 +193,23 @@ export default async function WritingPostPage({ params }: PageProps) {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Header />
+      <PostTranslationProvider value={{ basePath: "/writing", slugs: translationSlugs }}>
+        <Header />
+      </PostTranslationProvider>
       <main id="main" className="flex-1">
-        <article className="mx-auto w-full max-w-2xl px-6 py-12 sm:py-20">
-          <Link
-            href="/writing"
-            className="inline-flex min-h-9 items-center font-mono text-xs uppercase tracking-[0.18em] text-muted underline-offset-4 transition-colors hover:text-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
-            ← {t("backToList")}
-          </Link>
-          <header className="mt-10 flex flex-col gap-4">
+        <article
+          aria-labelledby="post-title"
+          className="mx-auto w-full max-w-2xl px-6 py-12 sm:py-20"
+        >
+          <Breadcrumb
+            ariaLabel={tBreadcrumb("writing")}
+            items={[
+              { label: tBreadcrumb("home"), href: "/" },
+              { label: tBreadcrumb("writing"), href: "/writing" },
+              { label: post.frontmatter.title },
+            ]}
+          />
+          <header className="mt-8 flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
               <time dateTime={post.frontmatter.publishedAt}>
                 {formatDate(post.frontmatter.publishedAt, locale)}
@@ -188,12 +219,26 @@ export default async function WritingPostPage({ params }: PageProps) {
                 {t("readingTime", { minutes: post.readingMinutes })}
               </span>
             </div>
-            <h1 className="text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+            <h1
+              id="post-title"
+              className="text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
+            >
               {post.frontmatter.title}
             </h1>
             <p className="text-pretty text-lg text-muted">
               {post.frontmatter.description}
             </p>
+            {otherLocale && otherSlug && translationLanguageLabel ? (
+              <Link
+                href={`/writing/${otherSlug}`}
+                locale={otherLocale}
+                className="inline-flex min-h-9 w-fit items-center gap-2 rounded-full border border-border bg-subtle/40 px-4 py-2 text-xs font-medium text-muted transition-colors hover:border-accent/40 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <span aria-hidden="true">🌐</span>
+                {t("translationAvailable", { language: translationLanguageLabel })}
+                <span aria-hidden="true">→</span>
+              </Link>
+            ) : null}
           </header>
 
           {post.frontmatter.coverImage ? (
@@ -214,6 +259,18 @@ export default async function WritingPostPage({ params }: PageProps) {
                 mdxOptions: {
                   remarkPlugins: [remarkGfm],
                   rehypePlugins: [
+                    rehypeSlug,
+                    [
+                      rehypeAutolinkHeadings,
+                      {
+                        behavior: "append",
+                        properties: {
+                          className: ["anchor"],
+                          "aria-label": "Permalink to this heading",
+                        },
+                        content: { type: "text", value: "#" },
+                      },
+                    ],
                     [
                       rehypePrettyCode,
                       {

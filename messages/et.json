@@ -56,12 +56,16 @@
     "tagsLabel": "Sildid",
     "postNavLabel": "Teised postitused",
     "newer": "Uuem",
-    "older": "Vanem"
+    "older": "Vanem",
+    "translationAvailable": "Loe seda keeles {language}",
+    "languageEt": "eesti",
+    "languageEn": "inglise"
   },
   "LanguageSwitcher": {
     "label": "Keel",
     "en": "Inglise",
-    "et": "Eesti"
+    "et": "Eesti",
+    "missingTranslation": "Lülita {locale} keelele (selle lehe tõlget veel pole — suunab nimekirja)"
   },
   "DesignSystems": {
     "metaTitle": "Disainisüsteem — Magnus Mägi",
