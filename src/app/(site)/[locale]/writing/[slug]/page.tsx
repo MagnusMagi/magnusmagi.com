@@ -117,19 +117,12 @@ export default async function WritingPostPage({ params }: PageProps) {
 
   const toc = extractToc(post.content);
 
-  const otherLocaleEntries = Object.entries(post.frontmatter.translations) as Array<[
-    Locale,
-    string,
-  ]>;
   const translationSlugs: Partial<Record<Locale, string>> = { [locale as Locale]: slug };
-  for (const [otherLocale, otherSlug] of otherLocaleEntries) {
+  for (const [otherLocale, otherSlug] of Object.entries(
+    post.frontmatter.translations,
+  ) as Array<[Locale, string]>) {
     translationSlugs[otherLocale] = otherSlug;
   }
-  const otherLocale = otherLocaleEntries.find(([l]) => l !== locale)?.[0];
-  const otherSlug = otherLocale ? translationSlugs[otherLocale] : undefined;
-  const translationLanguageLabel = otherLocale
-    ? t(otherLocale === "et" ? "languageEt" : "languageEn")
-    : null;
 
   const currentIndex = allPosts.findIndex((p) => p.slug === slug);
   const newerPost =
@@ -285,17 +278,6 @@ export default async function WritingPostPage({ params }: PageProps) {
             <p className="text-pretty text-lg text-muted">
               {post.frontmatter.description}
             </p>
-            {otherLocale && otherSlug && translationLanguageLabel ? (
-              <Link
-                href={`/writing/${otherSlug}`}
-                locale={otherLocale}
-                className="inline-flex min-h-9 w-fit items-center gap-2 rounded-full border border-border bg-subtle/40 px-4 py-2 text-xs font-medium text-muted transition-colors hover:border-accent/40 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                <span aria-hidden="true">🌐</span>
-                {t("translationAvailable", { language: translationLanguageLabel })}
-                <span aria-hidden="true">→</span>
-              </Link>
-            ) : null}
           </header>
 
           {post.frontmatter.coverImage ? (
