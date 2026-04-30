@@ -60,7 +60,7 @@ export default async function TagArchivePage({ params }: PageProps) {
       <Header />
       <main id="main" className="flex-1">
         <section className="border-b border-border/60">
-          <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-24">
+          <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-20 md:py-24">
             <Link
               href="/writing"
               className="font-mono text-xs uppercase tracking-[0.18em] text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"

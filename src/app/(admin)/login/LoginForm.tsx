@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useId, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 interface LoginFormProps {
@@ -12,31 +12,12 @@ type Status =
   | { kind: "submitting" }
   | { kind: "error"; message: string };
 
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "10px 12px",
-  borderRadius: 10,
-  border: "1px solid #e5e5e0",
-  background: "#fff",
-  color: "#0d0d0d",
-  fontSize: 14,
-  outline: "none",
-  boxSizing: "border-box",
-  fontFamily: "inherit",
-};
-
-const labelStyle: React.CSSProperties = {
-  display: "block",
-  fontSize: 11,
-  letterSpacing: "0.18em",
-  textTransform: "uppercase",
-  color: "#525252",
-  marginBottom: 6,
-};
-
 export function LoginForm({ redirectTo }: LoginFormProps) {
   const router = useRouter();
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const usernameId = useId();
+  const passwordId = useId();
+  const errorId = useId();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,7 +28,10 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
     const password = String(data.get("password") ?? "");
 
     if (!username || !password) {
-      setStatus({ kind: "error", message: "Username and password are required." });
+      setStatus({
+        kind: "error",
+        message: "Username and password are required.",
+      });
       return;
     }
 
@@ -69,10 +53,14 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
         return;
       }
 
-      const message =
-        body.error === "credentials"
-          ? "Invalid username or password."
-          : "Something went wrong. Try again.";
+      let message = "Something went wrong. Try again.";
+      if (body.error === "credentials") {
+        message = "Invalid username or password.";
+      } else if (body.error === "rate_limit") {
+        message = "Too many attempts. Try again in a few minutes.";
+      } else if (body.error === "forbidden") {
+        message = "Request blocked. Refresh and try again.";
+      }
       setStatus({ kind: "error", message });
     } catch {
       setStatus({ kind: "error", message: "Network error. Try again." });
@@ -80,60 +68,61 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
   }
 
   const isSubmitting = status.kind === "submitting";
+  const errorMessage = status.kind === "error" ? status.message : null;
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div>
-        <label htmlFor="login-username" style={labelStyle}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <label
+          htmlFor={usernameId}
+          className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted"
+        >
           Username
         </label>
         <input
-          id="login-username"
+          id={usernameId}
           name="username"
           type="text"
           autoComplete="username"
           required
           autoFocus
-          style={inputStyle}
+          aria-invalid={errorMessage ? true : undefined}
+          aria-describedby={errorMessage ? errorId : undefined}
+          className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted/70 focus:border-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
         />
       </div>
-      <div>
-        <label htmlFor="login-password" style={labelStyle}>
+      <div className="flex flex-col gap-2">
+        <label
+          htmlFor={passwordId}
+          className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted"
+        >
           Password
         </label>
         <input
-          id="login-password"
+          id={passwordId}
           name="password"
           type="password"
           autoComplete="current-password"
           required
-          style={inputStyle}
+          aria-invalid={errorMessage ? true : undefined}
+          aria-describedby={errorMessage ? errorId : undefined}
+          className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted/70 focus:border-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
         />
       </div>
       <button
         type="submit"
         disabled={isSubmitting}
-        style={{
-          padding: "10px 16px",
-          borderRadius: 999,
-          border: "none",
-          background: "#0d0d0d",
-          color: "#fafaf7",
-          fontSize: 14,
-          fontWeight: 500,
-          cursor: isSubmitting ? "not-allowed" : "pointer",
-          opacity: isSubmitting ? 0.6 : 1,
-          fontFamily: "inherit",
-        }}
+        className="mt-2 inline-flex items-center justify-center rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? "Signing in…" : "Sign in"}
       </button>
-      {status.kind === "error" ? (
+      {errorMessage ? (
         <p
+          id={errorId}
           role="alert"
-          style={{ margin: 0, fontSize: 13, color: "#b91c1c" }}
+          className="text-sm text-red-600 dark:text-red-400"
         >
-          {status.message}
+          {errorMessage}
         </p>
       ) : null}
     </form>

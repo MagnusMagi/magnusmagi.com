@@ -12,7 +12,7 @@ type SocialLink = SiteContent["contact"]["social"][number];
 export function Contact({ data }: ContactProps) {
   return (
     <section id="contact" className="border-b border-border/60">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-20">
         <SectionHeading eyebrow={data.eyebrow} heading={data.heading} />
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
           <div className="flex flex-col gap-8">

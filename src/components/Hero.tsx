@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import type { SiteContent } from "@/content/site";
 
@@ -7,6 +8,7 @@ interface HeroProps {
 }
 
 export function Hero({ data }: HeroProps) {
+  const t = useTranslations("Hero");
   const metaRows = [
     {
       label: data.metaLocationLabel,
@@ -27,7 +29,7 @@ export function Hero({ data }: HeroProps) {
 
   return (
     <section className="border-b border-border/60">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 py-12 sm:py-20 md:py-28 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20">
         <div className="flex flex-col gap-10">
           <div className="flex items-center gap-4">
             <div className="relative h-14 w-14 overflow-hidden rounded-full border border-border bg-subtle">
@@ -80,24 +82,26 @@ export function Hero({ data }: HeroProps) {
         </div>
 
         <aside
-          aria-label="Profile metadata"
-          className="w-full max-w-sm self-end font-mono lg:w-72"
+          aria-label={t("metadataLabel")}
+          className="w-full self-end font-mono lg:max-w-sm lg:w-72"
         >
-          <dl className="flex flex-col">
+          <dl className="grid grid-cols-3 gap-3 border-t border-border/60 pt-6 lg:grid-cols-1 lg:gap-0 lg:border-t-0 lg:pt-0">
             {metaRows.map((row, index) => (
               <div
                 key={row.label}
-                className={`flex flex-col gap-1.5 py-4 ${
-                  index === 0 ? "" : "border-t border-border/60"
+                className={`flex flex-col gap-1 lg:gap-1.5 lg:py-4 ${
+                  index === 0
+                    ? ""
+                    : "lg:border-t lg:border-border/60"
                 }`}
               >
-                <dt className="text-[11px] uppercase tracking-[0.22em] text-muted">
+                <dt className="text-[10px] uppercase tracking-[0.18em] text-muted lg:text-[11px] lg:tracking-[0.22em]">
                   {row.label}
                 </dt>
-                <dd className="font-sans text-base font-medium tracking-tight text-foreground">
+                <dd className="font-sans text-sm font-medium tracking-tight text-foreground lg:text-base">
                   {row.value}
                 </dd>
-                <dd className="text-[11px] uppercase tracking-[0.18em] text-muted">
+                <dd className="text-[10px] uppercase tracking-[0.18em] text-muted lg:text-[11px]">
                   {row.meta}
                 </dd>
               </div>

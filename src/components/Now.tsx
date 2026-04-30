@@ -11,7 +11,7 @@ export function Now({ data }: NowProps) {
 
   return (
     <section className="border-b border-border/60">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-20">
         <SectionHeading heading={data.heading} />
         <div className="grid gap-4 sm:grid-cols-3">
           {items.map((item) => (

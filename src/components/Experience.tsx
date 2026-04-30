@@ -11,7 +11,7 @@ interface ExperienceProps {
 export function Experience({ eyebrow, heading, entries }: ExperienceProps) {
   return (
     <section className="border-b border-border/60">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-20">
         <SectionHeading eyebrow={eyebrow} heading={heading} />
         <ol className="flex flex-col">
           {entries.map((entry, index) => (

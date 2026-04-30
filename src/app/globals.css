@@ -41,6 +41,15 @@ body {
   color: var(--foreground);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: anywhere;
+}
+
 section[id] {
   scroll-margin-top: 4.5rem;
 }
@@ -188,4 +197,45 @@ body {
 button:focus-visible,
 a:focus-visible {
   outline-offset: 4px;
+}
+
+@keyframes tile-pop-new {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tile-pop-merge {
+  0% {
+    transform: scale(0.85);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.tile-pop-new {
+  animation: tile-pop-new 180ms ease-out;
+}
+
+.tile-pop-merge {
+  animation: tile-pop-merge 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile-pop-new,
+  .tile-pop-merge {
+    animation: none;
+  }
 }

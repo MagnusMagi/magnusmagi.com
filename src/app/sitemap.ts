@@ -37,6 +37,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
+  const playPaths = [
+    "/play",
+    "/play/magibird",
+    "/play/2049",
+    "/play/snake",
+    "/play/mines",
+  ];
+  const playEntries: MetadataRoute.Sitemap = playPaths.flatMap((path) =>
+    routing.locales.map((locale) => ({
+      url: localeUrl(locale, path),
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+      alternates: { languages: alternates(path) },
+    })),
+  );
+
   const dataByLocale = await Promise.all(
     routing.locales.map(async (locale) => ({
       locale,
@@ -68,6 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...homeEntries,
     ...writingIndexEntries,
+    ...playEntries,
     ...postEntries,
     ...tagEntries,
   ];

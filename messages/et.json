@@ -4,10 +4,15 @@
     "about": "Minust",
     "work": "Tööd",
     "writing": "Kirjutised",
+    "play": "Mäng",
     "contact": "Kontakt",
     "languageLabel": "Keel",
     "primaryLabel": "Põhinavigatsioon",
+    "menuLabel": "Menüü",
     "skipToContent": "Hüppa sisule"
+  },
+  "Hero": {
+    "metadataLabel": "Profiili andmed"
   },
   "Contact": {
     "form": {
@@ -25,6 +30,13 @@
       "errorRateLimit": "Liiga palju sõnumeid sellest võrgust. Palun proovi hiljem uuesti.",
       "errorServer": "Midagi läks minu poolel valesti. Palun saada e-kiri otse.",
       "errorConfig": "Kontaktivorm on ajutiselt väljas. Palun saada e-kiri otse.",
+      "errorNameRequired": "Palun sisesta oma nimi.",
+      "errorNameTooLong": "Nimi on liiga pikk.",
+      "errorEmailRequired": "Palun sisesta oma e-post.",
+      "errorEmailInvalid": "Palun sisesta korrektne e-posti aadress.",
+      "errorMessageRequired": "Palun kirjuta sõnum.",
+      "errorMessageTooShort": "Sõnum on liiga lühike — vähemalt 10 tähemärki.",
+      "errorMessageTooLong": "Sõnum on liiga pikk — kuni 4000 tähemärki.",
       "honeypotLabel": "Jäta see väli tühjaks"
     }
   },
@@ -41,11 +53,103 @@
     "tagArchiveHeading": "Sildiga „{tag}\"",
     "tagArchiveSubhead": "Postitused, mis jagavad sama teemat.",
     "tagArchiveEmpty": "Selle sildi all veel postitusi pole.",
-    "tagsLabel": "Sildid"
+    "tagsLabel": "Sildid",
+    "postNavLabel": "Teised postitused",
+    "newer": "Uuem",
+    "older": "Vanem"
   },
   "LanguageSwitcher": {
     "label": "Keel",
     "en": "Inglise",
     "et": "Eesti"
+  },
+  "Play": {
+    "metaTitle": "Mängud — Magnus Mägi",
+    "metaDescription": "Pisike kollektsioon monokroomseid minimänge — Mägi Bird ja 2048.",
+    "eyebrow": "Mäng",
+    "heading": "Minimängud",
+    "subhead": "Lühike kõrvalepõige. Monokroomne, reklaamide ja jälgimiseta. Parimad skoorid salvestuvad sellesse brauserisse.",
+    "backToHub": "Kõik mängud",
+    "playArrow": "Mängi →",
+    "notes": {
+      "privacy": "Ei jälgimist. Ei reklaame. Parimad skoorid püsivad ainult sinu brauseris.",
+      "credits": "Inspireeritud Gabriele Cirulli 2048-st (MIT), 1970ndate arkaadiajastu Maost ning lendlemise arkaaditraditsioonist. Originaalrealisatsioon, MIT-litsentsiga."
+    },
+    "magibird": {
+      "cardTitle": "Mägi Bird",
+      "cardDescription": "Puuduta lendamiseks, väldi torusid. Reaktsioonil põhinev tegevus.",
+      "cardMeta": "Tegevus · Refleks",
+      "metaTitle": "Mägi Bird — Magnus Mägi",
+      "metaDescription": "Mägi Bird — monokroomne minimäng, kus väldid torusid.",
+      "eyebrow": "Mäng",
+      "heading": "Mägi Bird",
+      "subhead": "Lendamiseks puuduta, klõpsa või vajuta tühikut. Parim skoor salvestub sellesse brauserisse.",
+      "pressToStart": "Alustamiseks vajuta tühikut või puuduta",
+      "controlsHint": "Tühik · Klõps · Puudutus · R alustab uuesti",
+      "gameOver": "Mäng läbi",
+      "score": "Skoor",
+      "best": "Parim",
+      "restart": "Mängi uuesti",
+      "ariaLabel": "Mägi Bird minimängu kanvas"
+    },
+    "g2049": {
+      "cardTitle": "2049",
+      "cardDescription": "Libista plaate, kombineeri numbreid, kahesta üles. Puhas loogika.",
+      "cardMeta": "Mõistatus · Loogika",
+      "metaTitle": "2049 — Magnus Mägi",
+      "metaDescription": "Monokroomne numbrimerge-mõistatus — libista plaate, kombineeri paarid, kahesta üles.",
+      "eyebrow": "Mäng",
+      "heading": "2049",
+      "subhead": "Libista plaate noolte, WASD-i või pühkimisega. Ühenda võrdsed numbrid ja kahesta üles. Parim skoor salvestub sellesse brauserisse.",
+      "controlsHint": "Nooled · WASD · Pühi · R alustab uuesti",
+      "score": "Skoor",
+      "best": "Parim",
+      "newGame": "Uus mäng",
+      "youWon": "Eesmärk käes",
+      "keepGoing": "Mängi edasi",
+      "gameOver": "Mäng läbi",
+      "ariaLabel": "2049 mängulaud"
+    },
+    "snake": {
+      "cardTitle": "Madu",
+      "cardDescription": "Söö. Kasva. Ära ennast hammusta. Klassika, monokroomne.",
+      "cardMeta": "Arkaad · Klassika",
+      "metaTitle": "Madu — Magnus Mägi",
+      "metaDescription": "Monokroomne Madu — söö täpid, kasvata joon, väldi iseennast.",
+      "eyebrow": "Mäng",
+      "heading": "Madu",
+      "subhead": "Juhi noolte, WASD-i või pühkimisega. Söö täpp, et kasvada. Iga söögiga kiirus tõuseb. Parim skoor salvestub sellesse brauserisse.",
+      "pressToStart": "Vajuta noolt või pühi alustamiseks",
+      "controlsHint": "Nooled · WASD · Pühi · R alustab uuesti",
+      "gameOver": "Mäng läbi",
+      "score": "Skoor",
+      "best": "Parim",
+      "restart": "Mängi uuesti",
+      "ariaLabel": "Mao minimängu kanvas"
+    },
+    "mines": {
+      "cardTitle": "Mägi Mines",
+      "cardDescription": "Ava ruudud, märgi miinid, tuleta vastus. Puhas loogika.",
+      "cardMeta": "Mõistatus · Tuletamine",
+      "metaTitle": "Mägi Mines — Magnus Mägi",
+      "metaDescription": "Monokroomne miiniväli — ava turvalised ruudud, märgi miinid, lõhu oma parim aeg.",
+      "eyebrow": "Mäng",
+      "heading": "Mägi Mines",
+      "subhead": "Puuduta avamiseks. Pikk vajutus või parem klõps märgib miini. Klaviatuuriga: nooled + tühik. Esimene klõps on alati ohutu. Parim aeg raskusastme kohta salvestub sellesse brauserisse.",
+      "controlsHint": "Puudutus / tühik avab · Pikk vajutus / parem klõps / F märgib · Nooled liiguvad · R alustab uuesti",
+      "mines": "Miinid",
+      "time": "Aeg",
+      "best": "Parim",
+      "newGame": "Uus mäng",
+      "easy": "Lihtne",
+      "hard": "Raske",
+      "youWon": "Puhastatud",
+      "gameOver": "Pauh",
+      "ariaLabel": "Mägi Mines mängulaud",
+      "flagAria": "Märgitud",
+      "mineAria": "Miin",
+      "hiddenAria": "Peidetud ruut",
+      "restart": "Mängi uuesti"
+    }
   }
 }

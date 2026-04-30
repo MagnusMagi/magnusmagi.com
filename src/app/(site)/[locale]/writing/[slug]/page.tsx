@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -75,11 +76,20 @@ export default async function WritingPostPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "Writing" });
-  const [post, footer] = await Promise.all([
+  const [post, footer, allPosts] = await Promise.all([
     getPostBySlug(locale, slug),
     getFooter(locale as Locale),
+    getAllPosts(locale),
   ]);
   if (!post) notFound();
+
+  const currentIndex = allPosts.findIndex((p) => p.slug === slug);
+  const newerPost =
+    currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+  const olderPost =
+    currentIndex >= 0 && currentIndex < allPosts.length - 1
+      ? allPosts[currentIndex + 1]
+      : null;
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -147,10 +157,10 @@ export default async function WritingPostPage({ params }: PageProps) {
       />
       <Header />
       <main id="main" className="flex-1">
-        <article className="mx-auto w-full max-w-3xl px-6 py-20">
+        <article className="mx-auto w-full max-w-2xl px-6 py-12 sm:py-20">
           <Link
             href="/writing"
-            className="font-mono text-xs uppercase tracking-[0.18em] text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
+            className="inline-flex min-h-9 items-center font-mono text-xs uppercase tracking-[0.18em] text-muted underline-offset-4 transition-colors hover:text-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             ← {t("backToList")}
           </Link>
@@ -173,11 +183,13 @@ export default async function WritingPostPage({ params }: PageProps) {
           </header>
 
           {post.frontmatter.coverImage ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={`/writing-images/${post.frontmatter.coverImage}`}
               alt={post.frontmatter.coverAlt ?? ""}
-              className="mt-10 w-full rounded-2xl border border-border"
+              width={1600}
+              height={900}
+              sizes="(min-width: 768px) 672px, 100vw"
+              className="mt-10 h-auto w-full rounded-2xl border border-border"
             />
           ) : null}
 
@@ -198,6 +210,46 @@ export default async function WritingPostPage({ params }: PageProps) {
                 ))}
               </ul>
             </footer>
+          ) : null}
+
+          {newerPost || olderPost ? (
+            <nav
+              aria-label={t("postNavLabel")}
+              className="mt-16 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-2"
+            >
+              {newerPost ? (
+                <Link
+                  href={`/writing/${newerPost.slug}`}
+                  rel="prev"
+                  className="group flex flex-col gap-2 rounded-xl border border-border bg-subtle/30 p-5 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                    ← {t("newer")}
+                  </span>
+                  <span className="text-sm font-medium leading-snug text-foreground transition-colors group-hover:text-accent">
+                    {newerPost.frontmatter.title}
+                  </span>
+                </Link>
+              ) : (
+                <span aria-hidden="true" />
+              )}
+              {olderPost ? (
+                <Link
+                  href={`/writing/${olderPost.slug}`}
+                  rel="next"
+                  className="group flex flex-col gap-2 rounded-xl border border-border bg-subtle/30 p-5 text-right transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:text-right"
+                >
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                    {t("older")} →
+                  </span>
+                  <span className="text-sm font-medium leading-snug text-foreground transition-colors group-hover:text-accent">
+                    {olderPost.frontmatter.title}
+                  </span>
+                </Link>
+              ) : (
+                <span aria-hidden="true" />
+              )}
+            </nav>
           ) : null}
         </article>
       </main>

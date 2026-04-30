@@ -28,43 +28,13 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   }
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#fafaf7",
-        color: "#0d0d0d",
-        padding: "24px",
-        fontFamily:
-          "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 380,
-          padding: "32px",
-          border: "1px solid #e5e5e0",
-          borderRadius: 16,
-          background: "#fff",
-          boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
-        }}
-      >
-        <div style={{ marginBottom: 24 }}>
-          <div
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#525252",
-              marginBottom: 8,
-            }}
-          >
+    <main className="flex min-h-screen items-center justify-center bg-background p-6 text-foreground">
+      <div className="w-full max-w-sm rounded-2xl border border-border bg-subtle/40 p-8 shadow-sm">
+        <div className="mb-6">
+          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
             magnus.mägi
           </div>
-          <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight">
             Admin sign in
           </h1>
         </div>

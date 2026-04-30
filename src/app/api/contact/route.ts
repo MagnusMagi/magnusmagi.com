@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { sendContactEmail } from "@/lib/email";
 import { rateLimit } from "@/lib/rate-limit";
+import { clientIp, isSameOrigin } from "@/lib/request";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,17 +18,19 @@ const contactSchema = z.object({
 
 type ApiResponse =
   | { success: true }
-  | { success: false; error: "validation" | "rate_limit" | "server" | "config" };
-
-function clientIp(request: NextRequest): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0]!.trim();
-  const real = request.headers.get("x-real-ip");
-  if (real) return real.trim();
-  return "unknown";
-}
+  | {
+      success: false;
+      error: "validation" | "rate_limit" | "server" | "config" | "forbidden";
+    };
 
 export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse>> {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json(
+      { success: false, error: "forbidden" },
+      { status: 403 },
+    );
+  }
+
   let payload: unknown;
   try {
     payload = await request.json();

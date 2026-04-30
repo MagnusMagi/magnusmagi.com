@@ -4,10 +4,15 @@
     "about": "About",
     "work": "Work",
     "writing": "Writing",
+    "play": "Play",
     "contact": "Contact",
     "languageLabel": "Language",
     "primaryLabel": "Primary",
+    "menuLabel": "Menu",
     "skipToContent": "Skip to content"
+  },
+  "Hero": {
+    "metadataLabel": "Profile metadata"
   },
   "Contact": {
     "form": {
@@ -25,6 +30,13 @@
       "errorRateLimit": "Too many messages from this network. Please try again later.",
       "errorServer": "Something went wrong on my end. Please email me directly.",
       "errorConfig": "The contact form is temporarily offline. Please email me directly.",
+      "errorNameRequired": "Please enter your name.",
+      "errorNameTooLong": "Name is too long.",
+      "errorEmailRequired": "Please enter your email.",
+      "errorEmailInvalid": "Please enter a valid email address.",
+      "errorMessageRequired": "Please write a message.",
+      "errorMessageTooShort": "Message is too short — at least 10 characters.",
+      "errorMessageTooLong": "Message is too long — at most 4000 characters.",
       "honeypotLabel": "Leave this field empty"
     }
   },
@@ -41,11 +53,103 @@
     "tagArchiveHeading": "Tagged with {tag}",
     "tagArchiveSubhead": "Posts that share the same theme.",
     "tagArchiveEmpty": "No posts under this tag yet.",
-    "tagsLabel": "Tagged"
+    "tagsLabel": "Tagged",
+    "postNavLabel": "Other posts",
+    "newer": "Newer",
+    "older": "Older"
   },
   "LanguageSwitcher": {
     "label": "Language",
     "en": "English",
     "et": "Estonian"
+  },
+  "Play": {
+    "metaTitle": "Play — Magnus Mägi",
+    "metaDescription": "A small collection of mono-typography mini-games — Mägi Bird and 2048.",
+    "eyebrow": "Play",
+    "heading": "Mini-games",
+    "subhead": "A short distraction. Mono-typography, no ads, no tracking. Best scores are saved to this browser.",
+    "backToHub": "All games",
+    "playArrow": "Play →",
+    "notes": {
+      "privacy": "No tracking. No ads. Best scores live in your browser only.",
+      "credits": "Inspired by 2048 by Gabriele Cirulli (MIT), Snake from the 1970s arcade era, and the tap-to-flap arcade tradition. Original implementation, MIT licensed."
+    },
+    "magibird": {
+      "cardTitle": "Mägi Bird",
+      "cardDescription": "Tap to flap, dodge the pipes. Reaction-based action.",
+      "cardMeta": "Action · Reflex",
+      "metaTitle": "Mägi Bird — Magnus Mägi",
+      "metaDescription": "Mägi Bird — a mono-typography flap-and-dodge mini-game.",
+      "eyebrow": "Play",
+      "heading": "Mägi Bird",
+      "subhead": "Tap, click, or press space to flap. Best score is saved to this browser.",
+      "pressToStart": "Press space or tap to start",
+      "controlsHint": "Space · Click · Tap · R to restart",
+      "gameOver": "Game over",
+      "score": "Score",
+      "best": "Best",
+      "restart": "Play again",
+      "ariaLabel": "Mägi Bird mini game canvas"
+    },
+    "g2049": {
+      "cardTitle": "2049",
+      "cardDescription": "Slide tiles, combine numbers, double your way up. Pure logic.",
+      "cardMeta": "Puzzle · Logic",
+      "metaTitle": "2049 — Magnus Mägi",
+      "metaDescription": "A mono-typography number-merge puzzle — slide tiles, combine pairs, double your way up.",
+      "eyebrow": "Play",
+      "heading": "2049",
+      "subhead": "Slide tiles with arrows, WASD, or swipe. Combine matching numbers and double your way up. Best score is saved to this browser.",
+      "controlsHint": "Arrows · WASD · Swipe · R to restart",
+      "score": "Score",
+      "best": "Best",
+      "newGame": "New game",
+      "youWon": "Goal reached",
+      "keepGoing": "Keep going",
+      "gameOver": "Game over",
+      "ariaLabel": "2049 game board"
+    },
+    "snake": {
+      "cardTitle": "Snake",
+      "cardDescription": "Eat. Grow. Don't bite yourself. The classic, mono.",
+      "cardMeta": "Arcade · Classic",
+      "metaTitle": "Snake — Magnus Mägi",
+      "metaDescription": "A mono-typography Snake — eat the dots, grow the line, avoid yourself.",
+      "eyebrow": "Play",
+      "heading": "Snake",
+      "subhead": "Steer with arrows, WASD, or swipe. Eat the dot to grow. Speed creeps up with each bite. Best score is saved to this browser.",
+      "pressToStart": "Press an arrow or swipe to start",
+      "controlsHint": "Arrows · WASD · Swipe · R to restart",
+      "gameOver": "Game over",
+      "score": "Score",
+      "best": "Best",
+      "restart": "Play again",
+      "ariaLabel": "Snake mini game canvas"
+    },
+    "mines": {
+      "cardTitle": "Mägi Mines",
+      "cardDescription": "Reveal cells, flag mines, deduce your way through. Pure logic.",
+      "cardMeta": "Puzzle · Deduction",
+      "metaTitle": "Mägi Mines — Magnus Mägi",
+      "metaDescription": "A mono-typography minesweeper — reveal safe cells, flag the mines, beat your best time.",
+      "eyebrow": "Play",
+      "heading": "Mägi Mines",
+      "subhead": "Tap to reveal. Long-press or right-click to flag. Use arrow keys + Space to play with keyboard. The first click is always safe. Best time per difficulty is saved to this browser.",
+      "controlsHint": "Tap / Space reveal · Long-press / right-click / F flag · Arrows navigate · R restart",
+      "mines": "Mines",
+      "time": "Time",
+      "best": "Best",
+      "newGame": "New game",
+      "easy": "Easy",
+      "hard": "Hard",
+      "youWon": "Cleared",
+      "gameOver": "Boom",
+      "ariaLabel": "Mägi Mines game grid",
+      "flagAria": "Flagged",
+      "mineAria": "Mine",
+      "hiddenAria": "Hidden cell",
+      "restart": "Play again"
+    }
   }
 }

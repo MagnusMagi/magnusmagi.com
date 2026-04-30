@@ -5,8 +5,15 @@ interface Bucket {
 
 const buckets = new Map<string, Bucket>();
 
-const WINDOW_MS = 60 * 60 * 1000;
-const MAX_REQUESTS = 5;
+export interface RateLimitConfig {
+  windowMs: number;
+  maxRequests: number;
+}
+
+const DEFAULT_CONFIG: RateLimitConfig = {
+  windowMs: 60 * 60 * 1000,
+  maxRequests: 5,
+};
 
 export interface RateLimitResult {
   allowed: boolean;
@@ -14,26 +21,36 @@ export interface RateLimitResult {
   resetAt: number;
 }
 
-export function rateLimit(key: string): RateLimitResult {
+export function rateLimit(
+  key: string,
+  config: RateLimitConfig = DEFAULT_CONFIG,
+): RateLimitResult {
   const now = Date.now();
   const existing = buckets.get(key);
 
   if (!existing || existing.resetAt <= now) {
-    const next: Bucket = { count: 1, resetAt: now + WINDOW_MS };
+    const next: Bucket = { count: 1, resetAt: now + config.windowMs };
     buckets.set(key, next);
     pruneIfNeeded(now);
-    return { allowed: true, remaining: MAX_REQUESTS - 1, resetAt: next.resetAt };
+    return {
+      allowed: true,
+      remaining: config.maxRequests - 1,
+      resetAt: next.resetAt,
+    };
   }
 
-  if (existing.count >= MAX_REQUESTS) {
+  if (existing.count >= config.maxRequests) {
     return { allowed: false, remaining: 0, resetAt: existing.resetAt };
   }
 
-  const updated: Bucket = { count: existing.count + 1, resetAt: existing.resetAt };
+  const updated: Bucket = {
+    count: existing.count + 1,
+    resetAt: existing.resetAt,
+  };
   buckets.set(key, updated);
   return {
     allowed: true,
-    remaining: MAX_REQUESTS - updated.count,
+    remaining: config.maxRequests - updated.count,
     resetAt: updated.resetAt,
   };
 }

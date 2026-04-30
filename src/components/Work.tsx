@@ -11,7 +11,7 @@ interface WorkProps {
 export function Work({ eyebrow, heading, entries }: WorkProps) {
   return (
     <section id="work" className="border-b border-border/60">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-20">
         <SectionHeading eyebrow={eyebrow} heading={heading} />
         <div className="grid gap-4 sm:grid-cols-3">
           {entries.map((entry) => (

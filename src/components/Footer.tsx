@@ -24,7 +24,9 @@ export function Footer({ data }: FooterProps) {
           >
             {data.viewSource} ↗
           </a>
-          <span>© {year} Magnus Mägi</span>
+          <span>
+            © <span suppressHydrationWarning>{year}</span> Magnus Mägi
+          </span>
         </div>
       </div>
     </footer>

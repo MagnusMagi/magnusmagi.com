@@ -18,7 +18,7 @@ export function Skills({ data }: SkillsProps) {
 
   return (
     <section className="border-b border-border/60">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-20">
         <SectionHeading eyebrow={data.eyebrow} heading={data.heading} />
         <dl className="grid gap-10 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-10">
           {groups.map((group) => {

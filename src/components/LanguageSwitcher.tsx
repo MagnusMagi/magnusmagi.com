@@ -28,8 +28,9 @@ export function LanguageSwitcher() {
 
   return (
     <div
-      className="inline-flex items-center gap-1 rounded-full border border-border bg-subtle/40 p-1 text-xs font-medium"
+      role="group"
       aria-label={t("label")}
+      className="inline-flex items-center gap-1 rounded-full border border-border bg-subtle/40 p-1 text-xs font-medium"
     >
       {routing.locales.map((value) => {
         const active = value === locale;
@@ -40,7 +41,8 @@ export function LanguageSwitcher() {
             onClick={() => handleChange(value)}
             disabled={isPending}
             aria-pressed={active}
-            className={`rounded-full px-3 py-1 uppercase tracking-wider transition-colors ${
+            aria-label={t(value)}
+            className={`min-h-9 min-w-9 rounded-full px-3 py-1.5 uppercase tracking-wider transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               active
                 ? "bg-foreground text-background"
                 : "text-muted hover:text-foreground"
