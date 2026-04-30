@@ -142,6 +142,37 @@ export const getAllTags = cache(
   },
 );
 
+export const getRelatedPosts = cache(
+  async (locale: string, slug: string, limit = 3): Promise<Post[]> => {
+    const posts = await getAllPosts(locale);
+    const current = posts.find((p) => p.slug === slug);
+    if (!current) return [];
+    const currentTags = new Set(
+      current.frontmatter.tags.map((t) => t.toLowerCase()),
+    );
+    if (currentTags.size === 0) return [];
+
+    const scored = posts
+      .filter((p) => p.slug !== slug)
+      .map((p) => {
+        const overlap = p.frontmatter.tags.filter((t) =>
+          currentTags.has(t.toLowerCase()),
+        ).length;
+        return { post: p, overlap };
+      })
+      .filter((entry) => entry.overlap > 0)
+      .sort((a, b) => {
+        if (b.overlap !== a.overlap) return b.overlap - a.overlap;
+        return (
+          Date.parse(b.post.frontmatter.publishedAt) -
+          Date.parse(a.post.frontmatter.publishedAt)
+        );
+      });
+
+    return scored.slice(0, limit).map((entry) => entry.post);
+  },
+);
+
 export const getPostsByTag = cache(
   async (locale: string, tag: string): Promise<Post[]> => {
     const posts = await getAllPosts(locale);

@@ -8,16 +8,20 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
+import { AuthorBio } from "@/components/AuthorBio";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { CodeCopyButtons } from "@/components/CodeCopyButtons";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PostShare } from "@/components/PostShare";
+import { PostToc } from "@/components/PostToc";
 import { PostTranslationProvider } from "@/components/PostTranslationProvider";
 import { ReadingProgress } from "@/components/ReadingProgress";
+import { RelatedPosts } from "@/components/RelatedPosts";
 import { TagChip } from "@/components/TagChip";
 import { getContact, getFooter } from "@/content/site";
-import { getAllPosts, getPostBySlug } from "@/content/writing";
+import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/content/writing";
+import { extractToc } from "@/lib/toc";
 import type { Locale } from "@/i18n/routing";
 import { formatDate } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
@@ -103,13 +107,16 @@ export default async function WritingPostPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: "Writing" });
   const tBreadcrumb = await getTranslations({ locale, namespace: "Breadcrumb" });
-  const [post, footer, allPosts, contact] = await Promise.all([
+  const [post, footer, allPosts, contact, related] = await Promise.all([
     getPostBySlug(locale, slug),
     getFooter(locale as Locale),
     getAllPosts(locale),
     getContact(locale as Locale),
+    getRelatedPosts(locale, slug, 3),
   ]);
   if (!post) notFound();
+
+  const toc = extractToc(post.content);
 
   const otherLocaleEntries = Object.entries(post.frontmatter.translations) as Array<[
     Locale,
@@ -257,6 +264,8 @@ export default async function WritingPostPage({ params }: PageProps) {
             />
           ) : null}
 
+          <PostToc entries={toc} locale={locale as Locale} />
+
           <div className="prose mt-12">
             <CodeCopyButtons />
             <MDXRemote
@@ -319,10 +328,14 @@ export default async function WritingPostPage({ params }: PageProps) {
             </footer>
           ) : null}
 
+          <RelatedPosts posts={related} locale={locale as Locale} />
+
+          <AuthorBio locale={locale as Locale} />
+
           {newerPost || olderPost ? (
             <nav
               aria-label={t("postNavLabel")}
-              className="mt-16 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-2"
+              className="mt-12 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-2"
             >
               {newerPost ? (
                 <Link

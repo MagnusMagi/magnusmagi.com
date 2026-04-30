@@ -64,7 +64,11 @@
     "emailReply": "Vasta e-postiga",
     "copyLink": "Kopeeri link",
     "linkCopied": "Link kopeeritud",
-    "shareLabel": "Jaga seda postitust"
+    "shareLabel": "Jaga seda postitust",
+    "related": "Seotud märkmed",
+    "toc": "Sisukord",
+    "aboutAuthor": "Autori kohta",
+    "aboutMore": "Rohkem Magnusest"
   },
   "LanguageSwitcher": {
     "label": "Keel",
