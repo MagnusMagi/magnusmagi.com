@@ -56,6 +56,10 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: cspDirectives,
   },
+  {
+    key: "Vary",
+    value: "Accept",
+  },
 ];
 
 const nextConfig: NextConfig = {

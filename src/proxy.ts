@@ -2,6 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { routing } from "./i18n/routing";
+import { prefersMarkdown } from "./lib/accept";
 import { ADMIN_COOKIE_NAME, verifySessionToken } from "./lib/admin-auth";
 
 const intlMiddleware = createMiddleware(routing);
@@ -12,6 +13,13 @@ function requiresAdmin(pathname: string): boolean {
     pathname.startsWith("/keystatic/") ||
     pathname.startsWith("/api/keystatic/")
   );
+}
+
+function isMarkdownEligible(pathname: string): boolean {
+  if (pathname.startsWith("/api/") || pathname.startsWith("/_next/")) return false;
+  if (pathname === "/login") return false;
+  if (pathname === "/keystatic" || pathname.startsWith("/keystatic/")) return false;
+  return true;
 }
 
 export default function proxy(request: NextRequest) {
@@ -29,6 +37,23 @@ export default function proxy(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
     return NextResponse.next();
+  }
+
+  if (
+    request.method === "GET" &&
+    isMarkdownEligible(pathname) &&
+    prefersMarkdown(request.headers.get("accept"))
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/api/markdown";
+    return NextResponse.rewrite(url, {
+      request: {
+        headers: new Headers({
+          ...Object.fromEntries(request.headers),
+          "x-markdown-path": pathname,
+        }),
+      },
+    });
   }
 
   if (pathname === "/login" || pathname.startsWith("/api/")) {
