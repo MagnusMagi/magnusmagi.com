@@ -224,6 +224,33 @@
       "mineAria": "Mine",
       "hiddenAria": "Hidden cell",
       "restart": "Play again"
+    },
+    "kolmik": {
+      "cardTitle": "Kolmik",
+      "cardDescription": "Three in a row. You are X, the machine is O. Easy or hard.",
+      "cardMeta": "Puzzle · Strategy",
+      "metaTitle": "Kolmik — Magnus Mägi",
+      "metaDescription": "A mono-typography three-in-a-row — outplay the machine, or try to draw against it on hard.",
+      "eyebrow": "Play",
+      "heading": "Kolmik",
+      "subhead": "Three in a row. You play X, the machine plays O. Easy plays randomly. Hard plays perfectly — at best you draw. Wins, draws, and losses are saved to this browser per difficulty.",
+      "controlsHint": "Tap / click · Arrows + Space · R restart",
+      "wins": "Wins",
+      "draws": "Draws",
+      "losses": "Losses",
+      "newGame": "New game",
+      "easy": "Easy",
+      "hard": "Hard",
+      "youWon": "You won",
+      "youLost": "You lost",
+      "draw": "Draw",
+      "yourTurn": "Your turn",
+      "aiThinking": "Machine thinking…",
+      "ariaLabel": "Kolmik game grid",
+      "cellEmptyAria": "Empty cell",
+      "cellPlayerAria": "Your mark",
+      "cellAiAria": "Machine mark",
+      "restart": "Play again"
     }
   },
   "Breadcrumb": {

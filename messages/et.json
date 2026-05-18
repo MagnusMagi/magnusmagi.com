@@ -224,6 +224,33 @@
       "mineAria": "Miin",
       "hiddenAria": "Peidetud ruut",
       "restart": "Mängi uuesti"
+    },
+    "kolmik": {
+      "cardTitle": "Kolmik",
+      "cardDescription": "Kolm reas. Sina mängid X-i, masin O-d. Lihtne või raske.",
+      "cardMeta": "Mõistatus · Strateegia",
+      "metaTitle": "Kolmik — Magnus Mägi",
+      "metaDescription": "Monokroomne kolm-reas — ületa masinat, või proovi raskel tasemel viiki välja venitada.",
+      "eyebrow": "Mäng",
+      "heading": "Kolmik",
+      "subhead": "Kolm reas. Sina mängid X-i, masin O-d. Lihtne mängib juhuslikult. Raske mängib veatult — parim, milleks loota, on viik. Võidud, viigid ja kaotused salvestuvad sellesse brauserisse raskusastme kohta.",
+      "controlsHint": "Puudutus / klõps · Nooled + tühik · R alustab uuesti",
+      "wins": "Võidud",
+      "draws": "Viigid",
+      "losses": "Kaotused",
+      "newGame": "Uus mäng",
+      "easy": "Lihtne",
+      "hard": "Raske",
+      "youWon": "Võitsid",
+      "youLost": "Kaotasid",
+      "draw": "Viik",
+      "yourTurn": "Sinu käik",
+      "aiThinking": "Masin mõtleb…",
+      "ariaLabel": "Kolmik mängulaud",
+      "cellEmptyAria": "Tühi ruut",
+      "cellPlayerAria": "Sinu märk",
+      "cellAiAria": "Masina märk",
+      "restart": "Mängi uuesti"
     }
   },
   "Breadcrumb": {

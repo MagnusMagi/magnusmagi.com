@@ -63,6 +63,12 @@ export default async function PlayHubPage({ params }: PageProps) {
       description: t("mines.cardDescription"),
       meta: t("mines.cardMeta"),
     },
+    {
+      href: "/play/kolmik",
+      title: t("kolmik.cardTitle"),
+      description: t("kolmik.cardDescription"),
+      meta: t("kolmik.cardMeta"),
+    },
   ] as const;
 
   return (
