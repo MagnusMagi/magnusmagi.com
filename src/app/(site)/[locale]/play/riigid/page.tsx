@@ -69,16 +69,12 @@ export default async function RiigidPage({ params }: PageProps) {
                 score: t("score"),
                 best: t("best"),
                 streak: t("streak"),
-                round: t("round"),
                 newGame: t("newGame"),
                 easy: t("easy"),
                 hard: t("hard"),
-                finished: t("finished"),
                 controlsHint: t("controlsHint"),
                 ariaLabel: t("ariaLabel"),
                 flagAria: t("flagAria"),
-                restart: t("restart"),
-                nextRound: t("nextRound"),
               }}
             />
           </div>

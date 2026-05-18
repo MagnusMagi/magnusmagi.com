@@ -3,7 +3,6 @@
 import {
   useCallback,
   useEffect,
-  useId,
   useMemo,
   useRef,
   useState,
@@ -13,16 +12,12 @@ interface RiigidLabels {
   score: string;
   best: string;
   streak: string;
-  round: string;
   newGame: string;
   easy: string;
   hard: string;
-  finished: string;
   controlsHint: string;
   ariaLabel: string;
   flagAria: string;
-  restart: string;
-  nextRound: string;
 }
 
 interface RiigidProps {
@@ -31,9 +26,7 @@ interface RiigidProps {
 }
 
 type Difficulty = "easy" | "hard";
-type Status = "playing" | "finished";
 
-const ROUNDS = 10;
 const OPTION_COUNT = 4;
 const STORAGE_PREFIX = "riigid.best.";
 const FEEDBACK_DELAY_MS = 1100;
@@ -119,17 +112,13 @@ function StatCard({ label, value }: StatCardProps) {
 
 export function Riigid({ labels, locale }: RiigidProps) {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
-  const [round, setRound] = useState(0);
   const [current, setCurrent] = useState<Round | null>(null);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
-  const [status, setStatus] = useState<Status>("playing");
   const [bestEasy, setBestEasy] = useState(0);
   const [bestHard, setBestHard] = useState(0);
   const advanceTimer = useRef<number | null>(null);
-  const dialogTitleId = useId();
-  const dialogButtonRef = useRef<HTMLButtonElement>(null);
 
   const displayNames = useMemo(() => {
     try {
@@ -156,11 +145,9 @@ export function Riigid({ labels, locale }: RiigidProps) {
       advanceTimer.current = null;
     }
     setDifficulty(diff);
-    setRound(0);
     setScore(0);
     setStreak(0);
     setSelected(null);
-    setStatus("playing");
     setCurrent(buildRound(poolFor(diff)));
   }, []);
 
@@ -191,23 +178,20 @@ export function Riigid({ labels, locale }: RiigidProps) {
   }, []);
 
   useEffect(() => {
-    if (status !== "finished") return;
-    dialogButtonRef.current?.focus({ preventScroll: true });
+    if (streak <= 0) return;
     const updater = difficulty === "easy" ? setBestEasy : setBestHard;
     const key = `${STORAGE_PREFIX}${difficulty}`;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- recording terminal score (external system: localStorage)
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- persist new best streak as it advances (external system: localStorage)
     updater((prev) => {
-      const next = Math.max(prev, score);
-      if (next !== prev) {
-        try {
-          window.localStorage.setItem(key, String(next));
-        } catch {
-          /* ignore */
-        }
+      if (streak <= prev) return prev;
+      try {
+        window.localStorage.setItem(key, String(streak));
+      } catch {
+        /* ignore */
       }
-      return next;
+      return streak;
     });
-  }, [status, difficulty, score]);
+  }, [streak, difficulty]);
 
   useEffect(() => {
     return () => {
@@ -219,7 +203,6 @@ export function Riigid({ labels, locale }: RiigidProps) {
 
   const handleSelect = useCallback(
     (code: string) => {
-      if (status !== "playing") return;
       if (selected !== null) return;
       if (!current) return;
 
@@ -234,19 +217,11 @@ export function Riigid({ labels, locale }: RiigidProps) {
 
       advanceTimer.current = window.setTimeout(() => {
         advanceTimer.current = null;
-        setRound((r) => {
-          const nextRound = r + 1;
-          if (nextRound >= ROUNDS) {
-            setStatus("finished");
-            return r;
-          }
-          setSelected(null);
-          setCurrent(buildRound(poolFor(difficulty)));
-          return nextRound;
-        });
+        setSelected(null);
+        setCurrent(buildRound(poolFor(difficulty)));
       }, FEEDBACK_DELAY_MS);
     },
-    [status, selected, current, difficulty],
+    [selected, current, difficulty],
   );
 
   const best = difficulty === "easy" ? bestEasy : bestHard;
@@ -256,11 +231,7 @@ export function Riigid({ labels, locale }: RiigidProps) {
       <div className="flex items-center justify-between gap-2">
         <StatCard
           label={labels.score}
-          value={`${String(score).padStart(2, "0")}/${ROUNDS}`}
-        />
-        <StatCard
-          label={labels.round}
-          value={`${String(Math.min(round + 1, ROUNDS)).padStart(2, "0")}/${ROUNDS}`}
+          value={String(score).padStart(2, "0")}
         />
         <StatCard
           label={labels.streak}
@@ -268,7 +239,7 @@ export function Riigid({ labels, locale }: RiigidProps) {
         />
         <StatCard
           label={labels.best}
-          value={`${String(best).padStart(2, "0")}/${ROUNDS}`}
+          value={String(best).padStart(2, "0")}
         />
       </div>
 
@@ -301,15 +272,11 @@ export function Riigid({ labels, locale }: RiigidProps) {
         </button>
       </div>
 
-      <div
-        className="relative isolate"
-        role="region"
-        aria-label={labels.ariaLabel}
-      >
+      <div role="region" aria-label={labels.ariaLabel}>
         <div className="flex aspect-[3/2] items-center justify-center overflow-hidden rounded-md border border-border bg-subtle">
           {current ? (
             <img
-              key={`${current.correct}-${round}`}
+              key={current.correct}
               src={`https://flagcdn.com/w640/${current.correct.toLowerCase()}.png`}
               srcSet={`https://flagcdn.com/w320/${current.correct.toLowerCase()}.png 1x, https://flagcdn.com/w640/${current.correct.toLowerCase()}.png 2x`}
               alt={labels.flagAria}
@@ -321,43 +288,6 @@ export function Riigid({ labels, locale }: RiigidProps) {
             />
           ) : null}
         </div>
-
-        {status === "finished" ? (
-          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center p-4">
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby={dialogTitleId}
-              className="pointer-events-auto rounded-md border border-border bg-background/95 px-5 py-4 text-center shadow-sm"
-            >
-              <div
-                id={dialogTitleId}
-                className="text-sm font-medium text-accent"
-              >
-                {labels.finished}
-              </div>
-              <div className="mt-2 flex items-center justify-center gap-3 font-mono text-xs text-foreground">
-                <span>
-                  {labels.score} {score}/{ROUNDS}
-                </span>
-                <span className="text-muted">·</span>
-                <span>
-                  {labels.best} {best}/{ROUNDS}
-                </span>
-              </div>
-              <div className="mt-3">
-                <button
-                  ref={dialogButtonRef}
-                  type="button"
-                  onClick={() => startNew(difficulty)}
-                  className="rounded-full bg-foreground px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                >
-                  {labels.restart}
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : null}
       </div>
 
       <div className="grid grid-cols-2 gap-2">
@@ -381,7 +311,7 @@ export function Riigid({ labels, locale }: RiigidProps) {
               key={code}
               type="button"
               onClick={() => handleSelect(code)}
-              disabled={selected !== null || status !== "playing"}
+              disabled={selected !== null}
               className={cls}
             >
               {nameOf(code)}

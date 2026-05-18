@@ -256,26 +256,22 @@
     },
     "riigid": {
       "cardTitle": "Riigid",
-      "cardDescription": "Tunne ära riik tema lipu järgi. Kümme vooru, lihtne või raske.",
+      "cardDescription": "Tunne ära riik tema lipu järgi. Lõputu, lihtne või raske.",
       "cardMeta": "Viktoriin · Geograafia",
       "metaTitle": "Riigid — Magnus Mägi",
-      "metaDescription": "Monokroomne lipuviktoriin — arva riik tema lipu järgi kümne vooruga.",
+      "metaDescription": "Monokroomne lipuviktoriin — arva riik tema lipu järgi, voor voorus, kuni jaksad.",
       "eyebrow": "Mäng",
       "heading": "Riigid",
-      "subhead": "Tunne ära riik tema lipu järgi. Kümme vooru, neli vastusevarianti vooru kohta. Lihtne katab umbes viiskümmend tuntumat riiki; raske kõik ÜRO liikmesriigid. Parim skoor raskusastme kohta salvestub sellesse brauserisse. Lipupildid serveerib flagcdn.com.",
-      "controlsHint": "Puuduta vastust · 10 vooru mängu kohta",
+      "subhead": "Tunne ära riik tema lipu järgi. Neli vastusevarianti vooru kohta, lõpmatu pikkusega. Lihtne katab umbes viiskümmend tuntumat riiki; raske kõik ÜRO liikmesriigid. Parim seeria raskusastme kohta salvestub sellesse brauserisse. Lipupildid serveerib flagcdn.com.",
+      "controlsHint": "Puuduta vastust · Lõpmatud voorud — mängi edasi",
       "score": "Skoor",
-      "best": "Parim",
+      "best": "Parim seeria",
       "streak": "Seeria",
-      "round": "Voor",
       "newGame": "Uus mäng",
       "easy": "Lihtne",
       "hard": "Raske",
-      "finished": "Lõpp",
       "ariaLabel": "Riigid lipuviktoriin",
-      "flagAria": "Riigi lipp",
-      "restart": "Mängi uuesti",
-      "nextRound": "Edasi"
+      "flagAria": "Riigi lipp"
     }
   },
   "Breadcrumb": {

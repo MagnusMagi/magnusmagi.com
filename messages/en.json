@@ -256,26 +256,22 @@
     },
     "riigid": {
       "cardTitle": "Riigid",
-      "cardDescription": "Guess the country from its flag. Ten rounds, easy or hard.",
+      "cardDescription": "Guess the country from its flag. Unlimited rounds, easy or hard.",
       "cardMeta": "Quiz · Geography",
       "metaTitle": "Riigid — Magnus Mägi",
-      "metaDescription": "A mono-typography flag quiz — guess the country from its flag across ten rounds.",
+      "metaDescription": "A mono-typography flag quiz — guess the country from its flag, round after round, until you stop.",
       "eyebrow": "Play",
       "heading": "Riigid",
-      "subhead": "Guess the country from its flag. Ten rounds, four options each. Easy covers about fifty well-known countries; hard covers every UN member state. Best score per difficulty is saved to this browser. Flags served by flagcdn.com.",
-      "controlsHint": "Tap an option · 10 rounds per game",
+      "subhead": "Guess the country from its flag. Four options each round, unlimited rounds. Easy covers about fifty well-known countries; hard covers every UN member state. Best streak per difficulty is saved to this browser. Flags served by flagcdn.com.",
+      "controlsHint": "Tap an option · Unlimited rounds — keep going",
       "score": "Score",
-      "best": "Best",
+      "best": "Best streak",
       "streak": "Streak",
-      "round": "Round",
       "newGame": "New game",
       "easy": "Easy",
       "hard": "Hard",
-      "finished": "Finished",
       "ariaLabel": "Riigid flag quiz",
-      "flagAria": "Country flag",
-      "restart": "Play again",
-      "nextRound": "Next"
+      "flagAria": "Country flag"
     }
   },
   "Breadcrumb": {
