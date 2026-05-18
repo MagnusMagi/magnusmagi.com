@@ -147,7 +147,7 @@
     "playArrow": "Play →",
     "notes": {
       "privacy": "No tracking. No ads. Best scores live in your browser only.",
-      "credits": "Inspired by 2048 by Gabriele Cirulli (MIT), Snake from the 1970s arcade era, and the tap-to-flap arcade tradition. Original implementation, MIT licensed."
+      "credits": "Inspired by 2048 by Gabriele Cirulli (MIT), Snake from the 1970s arcade era, and the tap-to-flap arcade tradition. Country flag images served by flagcdn.com (free for any use). Original implementation, MIT licensed."
     },
     "magibird": {
       "cardTitle": "Mägi Bird",
@@ -253,6 +253,29 @@
       "cellPlayerAria": "Your mark",
       "cellAiAria": "Machine mark",
       "restart": "Play again"
+    },
+    "riigid": {
+      "cardTitle": "Riigid",
+      "cardDescription": "Guess the country from its flag. Ten rounds, easy or hard.",
+      "cardMeta": "Quiz · Geography",
+      "metaTitle": "Riigid — Magnus Mägi",
+      "metaDescription": "A mono-typography flag quiz — guess the country from its flag across ten rounds.",
+      "eyebrow": "Play",
+      "heading": "Riigid",
+      "subhead": "Guess the country from its flag. Ten rounds, four options each. Easy covers about fifty well-known countries; hard covers every UN member state. Best score per difficulty is saved to this browser. Flags served by flagcdn.com.",
+      "controlsHint": "Tap an option · 10 rounds per game",
+      "score": "Score",
+      "best": "Best",
+      "streak": "Streak",
+      "round": "Round",
+      "newGame": "New game",
+      "easy": "Easy",
+      "hard": "Hard",
+      "finished": "Finished",
+      "ariaLabel": "Riigid flag quiz",
+      "flagAria": "Country flag",
+      "restart": "Play again",
+      "nextRound": "Next"
     }
   },
   "Breadcrumb": {

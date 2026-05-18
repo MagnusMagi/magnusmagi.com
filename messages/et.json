@@ -147,7 +147,7 @@
     "playArrow": "Mängi →",
     "notes": {
       "privacy": "Ei jälgimist. Ei reklaame. Parimad skoorid püsivad ainult sinu brauseris.",
-      "credits": "Inspireeritud Gabriele Cirulli 2048-st (MIT), 1970ndate arkaadiajastu Maost ning lendlemise arkaaditraditsioonist. Originaalrealisatsioon, MIT-litsentsiga."
+      "credits": "Inspireeritud Gabriele Cirulli 2048-st (MIT), 1970ndate arkaadiajastu Maost ning lendlemise arkaaditraditsioonist. Lipupildid serveerib flagcdn.com (vabalt kasutatavad). Originaalrealisatsioon, MIT-litsentsiga."
     },
     "magibird": {
       "cardTitle": "Mägi Bird",
@@ -253,6 +253,29 @@
       "cellPlayerAria": "Sinu märk",
       "cellAiAria": "Masina märk",
       "restart": "Mängi uuesti"
+    },
+    "riigid": {
+      "cardTitle": "Riigid",
+      "cardDescription": "Tunne ära riik tema lipu järgi. Kümme vooru, lihtne või raske.",
+      "cardMeta": "Viktoriin · Geograafia",
+      "metaTitle": "Riigid — Magnus Mägi",
+      "metaDescription": "Monokroomne lipuviktoriin — arva riik tema lipu järgi kümne vooruga.",
+      "eyebrow": "Mäng",
+      "heading": "Riigid",
+      "subhead": "Tunne ära riik tema lipu järgi. Kümme vooru, neli vastusevarianti vooru kohta. Lihtne katab umbes viiskümmend tuntumat riiki; raske kõik ÜRO liikmesriigid. Parim skoor raskusastme kohta salvestub sellesse brauserisse. Lipupildid serveerib flagcdn.com.",
+      "controlsHint": "Puuduta vastust · 10 vooru mängu kohta",
+      "score": "Skoor",
+      "best": "Parim",
+      "streak": "Seeria",
+      "round": "Voor",
+      "newGame": "Uus mäng",
+      "easy": "Lihtne",
+      "hard": "Raske",
+      "finished": "Lõpp",
+      "ariaLabel": "Riigid lipuviktoriin",
+      "flagAria": "Riigi lipp",
+      "restart": "Mängi uuesti",
+      "nextRound": "Edasi"
     }
   },
   "Breadcrumb": {

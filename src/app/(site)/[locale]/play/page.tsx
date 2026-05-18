@@ -69,6 +69,12 @@ export default async function PlayHubPage({ params }: PageProps) {
       description: t("kolmik.cardDescription"),
       meta: t("kolmik.cardMeta"),
     },
+    {
+      href: "/play/riigid",
+      title: t("riigid.cardTitle"),
+      description: t("riigid.cardDescription"),
+      meta: t("riigid.cardMeta"),
+    },
   ] as const;
 
   return (
