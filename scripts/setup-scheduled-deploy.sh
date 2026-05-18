@@ -46,7 +46,10 @@ RESPONSE=$(curl --fail --silent --show-error -X POST \
   -d "{\"name\":\"$HOOK_NAME\",\"ref\":\"$HOOK_REF\"}" \
   "https://api.vercel.com/v1/projects/$PROJECT_ID/deploy-hooks?teamId=$TEAM_ID")
 
-HOOK_URL=$(echo "$RESPONSE" | jq -r '.url // .deployHook.url // empty')
+# Response shape: { ..., "link": { "deployHooks": [{ "name", "url", ... }] } }
+HOOK_URL=$(echo "$RESPONSE" \
+  | jq -r --arg name "$HOOK_NAME" \
+      '(.link.deployHooks // []) | map(select(.name == $name)) | last | .url // empty')
 
 if [ -z "$HOOK_URL" ]; then
   echo "error: failed to extract deploy hook url" >&2
