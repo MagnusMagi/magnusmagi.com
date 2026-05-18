@@ -1,0 +1,42 @@
+---
+title: "Minu git rebase reeglid"
+description: "Lühike nimekiri, mis on aasta jooksul mu projektide ajaloo loetavana hoidnud."
+publishedAt: "2026-05-26T05:00:00Z"
+tags: ["tehnika", "tööriistad"]
+translations:
+  en: my-git-rebase-rules
+---
+
+Ma rebase'in. Mu projektide ajalugu on enamasti lineaarne, enamasti loetav
+ja räägib enamasti loo sellest, kuidas asju otsustati, mitte sellest,
+kuidas ma tippisin. Reeglid, mida järgin, on lühikesed, ja mul pole veel
+katastroofi olnud.
+
+## Mida ma rebase'in
+
+Kohalikke harusid enne PR avamist. Commit'id, mida olen lükkamas, kui
+nende sõnumid on nende õigeks saamise käigus segaseks läinud. Squash-
+merge'id main'i, kui PR on iseseisev tööüksus ja üksikud commit'id on müra.
+
+## Mida ma ei rebase'i
+
+Midagi, mida keegi teine on puudutanud. Midagi, mis on lükatud jagatud
+harusse. Midagi mu praegusest sessioonist vanemat. Commit'i ümberkirjutamise
+hind, mille peale keegi teine on tööd ehitanud, on päevi segadust, mida
+keegi diagnoosida ei suuda, ja ma eelistan veidi sasitumat ajalugu sellele
+loomisele.
+
+## Reegel, mis mind kaitseb
+
+Riskantne rebase on rebase, mille peale ma pean mõtlema. Kui ma pean
+rebase'i peale mõtlema, ei tee ma seda terminalist. Teen seda graafilisest
+tööriistast, mis näitab mulle enne ja pärast. Aeglustus on meelega. Just
+siis, kui ma kõige tõenäolisemalt hooletult rebase'iksin, on mul kõige
+rohkem vaja näha, mida ma rebase'in.
+
+## Milline ajalugu välja näeb
+
+Lugeja saab logi tõmmata ja projektile järgneda. Pole "WIP" ega "fix
+typo" kandeid. Iga commit'i sõnum on käskivas vormis, olevikus, alla
+seitsmekümne tähemärgi. See on väike viisakus tulevaste lugejate vastu,
+sealhulgas minu enda vastu.

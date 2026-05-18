@@ -1,0 +1,41 @@
+---
+title: "Default values I changed"
+description: "A short list of defaults that did more work than any feature I built."
+publishedAt: "2026-05-27T17:00:00Z"
+tags: ["product", "building"]
+translations:
+  et: vaikevaartused-mida-muutsin
+---
+
+Some of the most consequential changes I made to the product in the last
+year were one-line changes to default values. None of them shipped with a
+changelog entry. All of them quietly moved a number.
+
+## What I changed
+
+Notifications default to off. New users opt in by interacting with the
+thing they want to hear about. Most existing apps default to on, and
+their day-thirty users learn to dread the icon. Mine do not.
+
+Sharing defaults to private. The user can change a switch later, but
+nothing they create is exposed unless they intentionally expose it. The
+audit conversation that followed was the easiest I have ever had.
+
+Sort order defaults to most recent. Not "by relevance," not "smart
+sort." Most recent is the order most users mean. The complexity of a
+smart sort is paid for at the cost of a small confusion every time the
+order changes for reasons the user did not initiate.
+
+## What I did not change
+
+Currency. Date format. Language. These are the defaults that need to be
+correct, not optional. I get them from the browser and never present a
+dialog asking the user to confirm what their own settings already
+declared.
+
+## The pattern
+
+The good defaults push power, not surface, to the user. They make the
+product safer, calmer, and quieter without anyone having to learn a
+setting. They are also impossible to A/B test honestly, which is
+probably why most products do not change them.

@@ -1,0 +1,38 @@
+---
+title: "Why I keep a CHANGELOG.md, alone"
+description: "A file for an audience of one, and why it has become the most useful file in the repo."
+publishedAt: "2026-05-25T05:00:00Z"
+tags: ["engineering", "tooling"]
+translations:
+  et: miks-pean-changelog-md-faili-uksinda
+---
+
+There is a `CHANGELOG.md` in every repo I own, including the ones where I
+am the only person who will ever read it. I have been doing this for two
+years. It is one of the few habits I no longer have to remind myself to
+keep.
+
+## What is in it
+
+One entry per day I touch the project. Three lines, in past tense. What
+I shipped, what I broke, what I decided not to do today. Dates in
+descending order. No fancy categories. No template. No tooling.
+
+The constraint of "three lines" is what makes the file survive. A longer
+format would have been abandoned by week three.
+
+## What it is for
+
+Future me, on a Tuesday three months from now, asking why a piece of code
+looks the way it does. The git log answers what changed. The changelog
+answers why. The two together are the difference between trusting past me
+and not trusting past me.
+
+The not-trusting case is expensive. I have spent days re-deriving a
+decision I had already made, because no record of the original survived.
+
+## What it has become
+
+A diary for the projects, written in technical voice. The project-version
+of a notebook. I do not show it to anyone. I do not optimise it for
+sharing. The fact that no one will ever see it is what makes it honest.

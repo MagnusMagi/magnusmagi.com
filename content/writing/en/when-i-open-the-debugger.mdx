@@ -1,0 +1,39 @@
+---
+title: "When I open the debugger"
+description: "A short rule about when to step through code versus when to read it."
+publishedAt: "2026-05-27T05:00:00Z"
+tags: ["engineering"]
+translations:
+  et: millal-avan-silujari
+---
+
+The debugger is my last resort, not my first. I have spent a fair amount
+of time, over the years, watching the wrong people use it as a first
+resort and watching the right people barely use it at all.
+
+## What I do before the debugger
+
+I read the code. Slowly, top to bottom, for the function involved. If I
+can build a mental model of what the function thinks it is doing, I find
+the bug about 80% of the time without running anything.
+
+Then I print. Not a logger framework. Plain print. I add the absolute
+minimum number of print statements that would let me test the mental
+model I just built. If the prints contradict my model, I either had the
+wrong model or there is a subtler bug than I expected.
+
+## When I open the debugger
+
+When the print statements have given me an answer I cannot believe. When
+the bug crosses three function boundaries and I have lost track of which
+state I am in. When the stack trace points somewhere that makes no sense
+without seeing the state at the moment of the call.
+
+In short: when I need to be in the program rather than read it.
+
+## What I have noticed
+
+The temptation to start with the debugger correlates inversely with how
+well I understand the code. The afternoons I jumped into the debugger
+first were almost always afternoons where I had not done the reading. The
+debugger felt fast at the time. The reading would have been faster.

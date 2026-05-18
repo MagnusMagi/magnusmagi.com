@@ -1,0 +1,43 @@
+---
+title: "When I write a test and when I don't"
+description: "Three rules I follow, two I have softened, and one I refuse to bend on."
+publishedAt: "2026-05-24T05:00:00Z"
+tags: ["engineering", "testing"]
+translations:
+  et: millal-kirjutan-testi-millal-ei
+---
+
+I write fewer tests than the testing books recommend and more than the
+"move fast" books pretend you can get away with. The rules I have settled
+on are short.
+
+## When I write one
+
+If the code makes a decision based on input, I write a test. If a wrong
+answer would not be caught visually, I write a test. If I cannot describe
+the function's behaviour in one English sentence, I write a test and
+sometimes the test forces me to rewrite the function.
+
+These three account for about 90% of what I test.
+
+## When I do not
+
+UI code that renders state. Glue functions that call one library and
+return its result unchanged. One-off scripts I will run twice. Migrations
+I have stepped through manually on a copy of production.
+
+The pattern is: I do not test code that has no decisions in it.
+
+## The rule I refuse to bend
+
+I do not skip the test for the bug I just fixed. Even when the fix is one
+character. Even when the regression seems impossible. The bug existed
+once, in code that I thought was correct. The next bug of the same shape
+will exist in code I think is correct too.
+
+## What I softened
+
+I used to insist on full integration tests for everything that touched
+the database. I now write integration tests for the three flows I would
+get paged about, and unit tests for the rest. The integration suite is
+ten times smaller and I run it ten times more often.

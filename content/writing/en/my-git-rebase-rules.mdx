@@ -1,0 +1,43 @@
+---
+title: "My git rebase rules"
+description: "A short list that has kept the history of my projects readable for a year."
+publishedAt: "2026-05-26T05:00:00Z"
+tags: ["engineering", "tooling"]
+translations:
+  et: minu-git-rebase-reeglid
+---
+
+I rebase. The history of my projects is mostly linear, mostly readable,
+and mostly tells the story of how things were decided rather than the
+story of how I typed. The rules I follow are short and I have not had a
+disaster yet.
+
+## What I rebase
+
+Local branches before I open a PR. Commits I am about to push, if their
+messages have gotten muddled in the process of getting them right.
+Squash-merges into main, when the PR is a self-contained unit of work and
+the individual commits are noise.
+
+## What I do not rebase
+
+Anything anyone else has touched. Anything pushed to a shared branch.
+Anything older than my current session. The cost of rewriting a commit
+someone else has based work on is days of confusion that nobody can
+diagnose, and I would rather have a slightly messier history than create
+that.
+
+## The rule that protects me
+
+A rebase that is risky is a rebase I have to think about. If I have to
+think about a rebase, I do not do it from the terminal. I do it from a
+graphical tool that shows me the before and after. The slowdown is
+deliberate. It is exactly when I am most likely to rebase carelessly
+that I most need to see what I am rebasing.
+
+## What the history looks like
+
+A reader can pull the log and follow the project. There are no
+"WIP" or "fix typo" entries. Every commit message is in the imperative
+mood, present tense, under seventy characters. It is a small bit of
+politeness toward future readers, including me.

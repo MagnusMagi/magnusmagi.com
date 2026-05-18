@@ -1,0 +1,44 @@
+---
+title: "Millal ma kirjutan testi ja millal ei kirjuta"
+description: "Kolm reeglit, mida järgin, kaks, mida olen pehmendanud, ja üks, mille üle ma järele ei anna."
+publishedAt: "2026-05-24T05:00:00Z"
+tags: ["tehnika", "testimine"]
+translations:
+  en: when-i-write-a-test-and-when-i-dont
+---
+
+Kirjutan vähem teste, kui testiraamatud soovitavad, ja rohkem, kui "liigu
+kiiresti" raamatud teesklevad, et saab läbi. Reeglid, mille juurde jõudsin,
+on lühikesed.
+
+## Millal ma kirjutan
+
+Kui kood teeb sisendi põhjal otsuse, kirjutan testi. Kui vale vastust ei
+saaks visuaalselt püüda, kirjutan testi. Kui ma ei suuda funktsiooni
+käitumist ühe lausega kirjeldada, kirjutan testi ja vahel sunnib test
+mind funktsiooni ümber kirjutama.
+
+Need kolm katavad umbes 90% sellest, mida ma testin.
+
+## Millal ma ei kirjuta
+
+UI-kood, mis renderdab olekut. Liimfunktsioonid, mis kutsuvad ühte teeki
+ja tagastavad selle tulemuse muutmata. Ühekordsed skriptid, mida ma
+käivitan kaks korda. Migratsioonid, mida olen käsitsi tootmise koopial
+läbi astunud.
+
+Muster on: ma ei testi koodi, milles pole otsuseid.
+
+## Reegel, mille üle ma järele ei anna
+
+Ma ei jäta vahele testi vea jaoks, mille just parandasin. Isegi kui
+parandus on üks tähemärk. Isegi kui regressioon tundub võimatu. Viga oli
+korra olemas koodis, mida ma pidasin õigeks. Järgmine sama kujuga viga
+on koodis, mida ma samuti pean õigeks.
+
+## Mida ma pehmendanud olen
+
+Ma nõudsin varem täielikke integratsiooniteste kõigele, mis andmebaasi
+puudutas. Nüüd kirjutan integratsiooniteste kolme voo jaoks, millest mind
+hoiataks, ja ühiktestid ülejäänu jaoks. Integratsioonipakett on kümme
+korda väiksem ja käivitan seda kümme korda sagedamini.
