@@ -15,9 +15,11 @@ interface RiigidLabels {
   newGame: string;
   easy: string;
   hard: string;
+  extreme: string;
   controlsHint: string;
   ariaLabel: string;
   flagAria: string;
+  timerAria: string;
 }
 
 interface RiigidProps {
@@ -25,11 +27,13 @@ interface RiigidProps {
   locale: string;
 }
 
-type Difficulty = "easy" | "hard";
+type Difficulty = "easy" | "hard" | "extreme";
 
 const OPTION_COUNT = 4;
 const STORAGE_PREFIX = "riigid.best.";
 const FEEDBACK_DELAY_MS = 1100;
+const EXTREME_TIME_MS = 10_000;
+const TIMEOUT_SENTINEL = "__timeout__";
 
 const EASY_COUNTRIES: readonly string[] = [
   "AR", "AT", "AU", "BE", "BR", "CA", "CH", "CL", "CN", "CO",
@@ -99,6 +103,10 @@ function poolFor(difficulty: Difficulty): readonly string[] {
   return difficulty === "easy" ? EASY_COUNTRIES : HARD_COUNTRIES;
 }
 
+function bestKeyFor(difficulty: Difficulty): string {
+  return `${STORAGE_PREFIX}${difficulty}`;
+}
+
 interface StatCardProps {
   label: string;
   value: string;
@@ -125,6 +133,8 @@ export function Riigid({ labels, locale }: RiigidProps) {
   const [selected, setSelected] = useState<string | null>(null);
   const [bestEasy, setBestEasy] = useState(0);
   const [bestHard, setBestHard] = useState(0);
+  const [bestExtreme, setBestExtreme] = useState(0);
+  const [timerMs, setTimerMs] = useState<number>(EXTREME_TIME_MS);
   const advanceTimer = useRef<number | null>(null);
   const seenRef = useRef<Set<string>>(new Set());
 
@@ -176,8 +186,9 @@ export function Riigid({ labels, locale }: RiigidProps) {
         return 0;
       }
     };
-    const e = readKey(`${STORAGE_PREFIX}easy`);
-    const h = readKey(`${STORAGE_PREFIX}hard`);
+    const e = readKey(bestKeyFor("easy"));
+    const h = readKey(bestKeyFor("hard"));
+    const x = readKey(bestKeyFor("extreme"));
     if (e > 0) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing from localStorage (external system)
       setBestEasy(e);
@@ -185,12 +196,20 @@ export function Riigid({ labels, locale }: RiigidProps) {
     if (h > 0) {
       setBestHard(h);
     }
+    if (x > 0) {
+      setBestExtreme(x);
+    }
   }, []);
 
   useEffect(() => {
     if (streak <= 0) return;
-    const updater = difficulty === "easy" ? setBestEasy : setBestHard;
-    const key = `${STORAGE_PREFIX}${difficulty}`;
+    const updater =
+      difficulty === "easy"
+        ? setBestEasy
+        : difficulty === "hard"
+          ? setBestHard
+          : setBestExtreme;
+    const key = bestKeyFor(difficulty);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- persist new best streak as it advances (external system: localStorage)
     updater((prev) => {
       if (streak <= prev) return prev;
@@ -211,30 +230,70 @@ export function Riigid({ labels, locale }: RiigidProps) {
     };
   }, []);
 
-  const handleSelect = useCallback(
-    (code: string) => {
-      if (selected !== null) return;
+  const finishRound = useCallback(
+    (pickedCode: string) => {
       if (!current) return;
-
-      setSelected(code);
-      const correct = code === current.correct;
+      const correct = pickedCode === current.correct;
+      setSelected(pickedCode);
       if (correct) {
         setScore((s) => s + 1);
         setStreak((s) => s + 1);
       } else {
         setStreak(0);
       }
-
       advanceTimer.current = window.setTimeout(() => {
         advanceTimer.current = null;
         setSelected(null);
         setCurrent(buildRound(poolFor(difficulty), seenRef.current));
       }, FEEDBACK_DELAY_MS);
     },
-    [selected, current, difficulty],
+    [current, difficulty],
   );
 
-  const best = difficulty === "easy" ? bestEasy : bestHard;
+  const handleSelect = useCallback(
+    (code: string) => {
+      if (selected !== null) return;
+      finishRound(code);
+    },
+    [selected, finishRound],
+  );
+
+  useEffect(() => {
+    if (difficulty !== "extreme") return;
+    if (!current) return;
+    if (selected !== null) return;
+
+    const startedAt = performance.now();
+    setTimerMs(EXTREME_TIME_MS);
+    let raf = 0;
+    const tick = (now: number) => {
+      const elapsed = now - startedAt;
+      const remaining = Math.max(0, EXTREME_TIME_MS - elapsed);
+      setTimerMs(remaining);
+      if (remaining <= 0) {
+        finishRound(TIMEOUT_SENTINEL);
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+    };
+  }, [difficulty, current, selected, finishRound]);
+
+  const best =
+    difficulty === "easy"
+      ? bestEasy
+      : difficulty === "hard"
+        ? bestHard
+        : bestExtreme;
+
+  const isExtreme = difficulty === "extreme";
+  const isBlurred = isExtreme && selected === null;
+  const timerPct = isExtreme
+    ? Math.max(0, Math.min(100, (timerMs / EXTREME_TIME_MS) * 100))
+    : 0;
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-5">
@@ -253,10 +312,16 @@ export function Riigid({ labels, locale }: RiigidProps) {
         />
       </div>
 
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex gap-2">
-          {(["easy", "hard"] as const).map((d) => {
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap gap-2">
+          {(["easy", "hard", "extreme"] as const).map((d) => {
             const active = difficulty === d;
+            const label =
+              d === "easy"
+                ? labels.easy
+                : d === "hard"
+                  ? labels.hard
+                  : labels.extreme;
             return (
               <button
                 key={d}
@@ -268,7 +333,7 @@ export function Riigid({ labels, locale }: RiigidProps) {
                     : "rounded-full border border-border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-subtle"
                 }
               >
-                {d === "easy" ? labels.easy : labels.hard}
+                {label}
               </button>
             );
           })}
@@ -282,7 +347,31 @@ export function Riigid({ labels, locale }: RiigidProps) {
         </button>
       </div>
 
-      <div role="region" aria-label={labels.ariaLabel}>
+      <div
+        role="region"
+        aria-label={labels.ariaLabel}
+        className="flex flex-col gap-2"
+      >
+        {isExtreme ? (
+          <div
+            role="timer"
+            aria-label={labels.timerAria}
+            aria-valuemin={0}
+            aria-valuemax={Math.round(EXTREME_TIME_MS / 1000)}
+            aria-valuenow={Math.ceil(timerMs / 1000)}
+            className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted"
+          >
+            <div className="h-1 flex-1 overflow-hidden rounded-full bg-subtle">
+              <div
+                className="h-full bg-accent"
+                style={{ width: `${timerPct}%` }}
+              />
+            </div>
+            <span className="tabular-nums text-foreground">
+              {String(Math.ceil(timerMs / 1000)).padStart(2, "0")}s
+            </span>
+          </div>
+        ) : null}
         <div className="flex aspect-[3/2] items-center justify-center overflow-hidden rounded-md border border-border bg-subtle">
           {current ? (
             <img
@@ -294,7 +383,9 @@ export function Riigid({ labels, locale }: RiigidProps) {
               height={427}
               loading="eager"
               decoding="async"
-              className="h-full w-full object-contain"
+              className={`h-full w-full object-contain transition-[filter] duration-200 ${
+                isBlurred ? "blur-md" : ""
+              }`}
             />
           ) : null}
         </div>

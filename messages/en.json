@@ -262,7 +262,7 @@
       "metaDescription": "A mono-typography flag quiz — guess the country from its flag, round after round, until you stop.",
       "eyebrow": "Play",
       "heading": "Riigid",
-      "subhead": "Guess the country from its flag. Four options each round, unlimited rounds. Easy covers about fifty well-known countries; hard covers every UN member state. Best streak per difficulty is saved to this browser. Flags served by flagcdn.com.",
+      "subhead": "Guess the country from its flag. Four options each round, unlimited rounds. Easy covers about fifty well-known countries; hard covers every UN member state. Extreme blurs the flag and gives you ten seconds per round. Best streak per difficulty is saved to this browser. Flags served by flagcdn.com.",
       "controlsHint": "Tap an option · Unlimited rounds — keep going",
       "score": "Score",
       "best": "Best streak",
@@ -270,8 +270,10 @@
       "newGame": "New game",
       "easy": "Easy",
       "hard": "Hard",
+      "extreme": "Extreme",
       "ariaLabel": "Riigid flag quiz",
-      "flagAria": "Country flag"
+      "flagAria": "Country flag",
+      "timerAria": "Seconds remaining"
     }
   },
   "Breadcrumb": {

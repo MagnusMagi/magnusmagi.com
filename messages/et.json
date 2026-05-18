@@ -262,7 +262,7 @@
       "metaDescription": "Monokroomne lipuviktoriin — arva riik tema lipu järgi, voor voorus, kuni jaksad.",
       "eyebrow": "Mäng",
       "heading": "Riigid",
-      "subhead": "Tunne ära riik tema lipu järgi. Neli vastusevarianti vooru kohta, lõpmatu pikkusega. Lihtne katab umbes viiskümmend tuntumat riiki; raske kõik ÜRO liikmesriigid. Parim seeria raskusastme kohta salvestub sellesse brauserisse. Lipupildid serveerib flagcdn.com.",
+      "subhead": "Tunne ära riik tema lipu järgi. Neli vastusevarianti vooru kohta, lõpmatu pikkusega. Lihtne katab umbes viiskümmend tuntumat riiki; raske kõik ÜRO liikmesriigid. Ekstreemne udustab lipu ja annab kümme sekundit vooru kohta. Parim seeria raskusastme kohta salvestub sellesse brauserisse. Lipupildid serveerib flagcdn.com.",
       "controlsHint": "Puuduta vastust · Lõpmatud voorud — mängi edasi",
       "score": "Skoor",
       "best": "Parim seeria",
@@ -270,8 +270,10 @@
       "newGame": "Uus mäng",
       "easy": "Lihtne",
       "hard": "Raske",
+      "extreme": "Ekstreemne",
       "ariaLabel": "Riigid lipuviktoriin",
-      "flagAria": "Riigi lipp"
+      "flagAria": "Riigi lipp",
+      "timerAria": "Sekundid jäänud"
     }
   },
   "Breadcrumb": {
