@@ -76,14 +76,21 @@ function shuffle<T>(arr: readonly T[]): T[] {
   return out;
 }
 
-function buildRound(pool: readonly string[]): Round {
-  const correct = pool[Math.floor(Math.random() * pool.length)];
+function buildRound(pool: readonly string[], seen: Set<string>): Round {
+  let unseen = pool.filter((c) => !seen.has(c));
+  if (unseen.length === 0) {
+    seen.clear();
+    unseen = pool.slice();
+  }
+  const correct = unseen[Math.floor(Math.random() * unseen.length)];
+  seen.add(correct);
+
   const others: string[] = [];
-  const candidates = pool.filter((c) => c !== correct);
-  while (others.length < OPTION_COUNT - 1 && candidates.length > 0) {
-    const idx = Math.floor(Math.random() * candidates.length);
-    others.push(candidates[idx]);
-    candidates.splice(idx, 1);
+  const distractors = pool.filter((c) => c !== correct);
+  while (others.length < OPTION_COUNT - 1 && distractors.length > 0) {
+    const idx = Math.floor(Math.random() * distractors.length);
+    others.push(distractors[idx]);
+    distractors.splice(idx, 1);
   }
   return { correct, options: shuffle([correct, ...others]) };
 }
@@ -119,6 +126,7 @@ export function Riigid({ labels, locale }: RiigidProps) {
   const [bestEasy, setBestEasy] = useState(0);
   const [bestHard, setBestHard] = useState(0);
   const advanceTimer = useRef<number | null>(null);
+  const seenRef = useRef<Set<string>>(new Set());
 
   const displayNames = useMemo(() => {
     try {
@@ -148,12 +156,14 @@ export function Riigid({ labels, locale }: RiigidProps) {
     setScore(0);
     setStreak(0);
     setSelected(null);
-    setCurrent(buildRound(poolFor(diff)));
+    seenRef.current = new Set();
+    setCurrent(buildRound(poolFor(diff), seenRef.current));
   }, []);
 
   useEffect(() => {
+    seenRef.current = new Set();
     // eslint-disable-next-line react-hooks/set-state-in-effect -- initial round on mount
-    setCurrent(buildRound(poolFor("easy")));
+    setCurrent(buildRound(poolFor("easy"), seenRef.current));
   }, []);
 
   useEffect(() => {
@@ -218,7 +228,7 @@ export function Riigid({ labels, locale }: RiigidProps) {
       advanceTimer.current = window.setTimeout(() => {
         advanceTimer.current = null;
         setSelected(null);
-        setCurrent(buildRound(poolFor(difficulty)));
+        setCurrent(buildRound(poolFor(difficulty), seenRef.current));
       }, FEEDBACK_DELAY_MS);
     },
     [selected, current, difficulty],
