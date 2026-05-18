@@ -1,0 +1,37 @@
+---
+title: "Üks keskkonnamuutuja ühe mure kohta"
+description: "Väike reegel, mis on hoidnud mu konfigurifaile aasta jooksul ausana."
+publishedAt: "2026-05-23T05:00:00Z"
+tags: ["tehnika", "tööriistad"]
+translations:
+  en: one-environment-variable-per-concern
+---
+
+Reegel on lühike: üks keskkonnamuutuja ühe mure kohta, ja mitte ühtegi
+muutujat, mis on kaks muret kübara all. Murdsin selle reegli korra ja
+maksin umbes kolm päeva. Reegel on sellest ajast peale kestnud.
+
+## Mida ma mõtlen
+
+Andmebaasi URL on üks mure. Redise URL on teine. API-võti üheainsa teenuse
+jaoks on üks muutuja, mille nimi peegeldab teenust. "Saladus" nimega
+`AUTH_KEY`, mida kasutatakse nii sessiooni allkirjastamiseks kui ka
+webhook'i kinnitamiseks, on kaks muret ühe muutuja sees peidus, ja see
+teeb sulle haiget päeval, kui sa pead ühte rotatseerima ilma teiseta.
+
+Nimetamine järgneb: `STRIPE_SECRET_KEY`, `RESEND_API_KEY`,
+`SESSION_SIGNING_SECRET`, `WEBHOOK_VERIFICATION_SECRET`. Iga üks pöördub
+ühe rotatsioonitsükli poole.
+
+## Mida reegel takistab
+
+Eelmises kvartalis rotatsioonisin võtit viie minutiga. Rotatsioon puudutas
+täpselt üht muutujat, täpselt kahes kohas. Enne reeglit oleks sarnane
+rotatsioon võtnud pärastlõuna grep'i ja palvet.
+
+## Mida see maksab
+
+`.env`-fail on pikem, kui rangelt vajab. Hind on võib-olla kakskümmend
+lisarida. Kasu on see, et ma saan faili valjusti läbi lugeda ja teada, mille
+jaoks iga rida on. See on test, mida ma käivitan, kui pole kindel, kas uus
+muutuja kuulub.

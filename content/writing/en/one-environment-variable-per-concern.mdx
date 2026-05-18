@@ -1,0 +1,37 @@
+---
+title: "One environment variable per concern"
+description: "A small rule that has kept my config files honest for a year."
+publishedAt: "2026-05-23T05:00:00Z"
+tags: ["engineering", "tooling"]
+translations:
+  et: uks-keskkonnamuutuja-uhe-mure-kohta
+---
+
+The rule is short: one environment variable per concern, and no variable
+that is two concerns wearing a hat. I broke this rule once and paid
+roughly three days for it. The rule has held since.
+
+## What I mean
+
+A database URL is one concern. A redis URL is another. An API key for a
+single service is one variable, named for that service. A "secret" called
+`AUTH_KEY` that is used for both session signing and webhook verification
+is two concerns hiding in one variable, and it will hurt you the day you
+need to rotate one without the other.
+
+The naming follows: `STRIPE_SECRET_KEY`, `RESEND_API_KEY`,
+`SESSION_SIGNING_SECRET`, `WEBHOOK_VERIFICATION_SECRET`. Each one
+addresses a single rotation cycle.
+
+## What the rule prevents
+
+Last quarter I rotated a key in five minutes. The rotation touched
+exactly one variable, in exactly two places. Before the rule, a similar
+rotation would have taken an afternoon of grep and prayer.
+
+## What it costs
+
+The `.env` file is longer than it strictly needs to be. The cost is
+maybe twenty extra lines. The benefit is that I can read the file out
+loud and know what each line is for. That is the test I run when I am
+not sure whether a new variable belongs.

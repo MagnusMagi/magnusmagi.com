@@ -1,0 +1,34 @@
+---
+title: "Why I don't use AI in production code (yet)"
+description: "What I let an assistant do, what I do not, and the line that has not moved in a year."
+publishedAt: "2026-05-21T05:00:00Z"
+tags: ["ai", "engineering"]
+translations:
+  et: miks-ma-veel-ei-kasuta-ai-d-tootmiskoodis
+---
+
+I use coding assistants every day, and almost never on production code. I
+have been holding this line for a year. It is not a moral position; it is
+an accuracy one.
+
+## What I let it do
+
+Scratch scripts. Migrations I will run once. Tests after I have written
+the implementation. Prose in commit messages and PR descriptions. Reading
+unfamiliar libraries in dialogue, then closing the chat before I touch
+the codebase.
+
+In each of these, the cost of being wrong is recoverable inside an hour.
+
+## What I do not let it do
+
+Write the code that ships. Not because it cannot. Because the cost of
+being subtly wrong in production is paid over weeks, by users who do not
+know to file a bug. A confident wrong line in a migration is a worse class
+of problem than a slow line written carefully.
+
+## What might change my mind
+
+Better explanations of uncertainty. Right now an assistant is equally
+confident when it is right and when it is hallucinating. The day I can
+read its uncertainty in the response, the line moves. Not before.

@@ -1,0 +1,42 @@
+---
+title: "The animation I removed"
+description: "Why a 120ms ease that I had been proud of had to come out."
+publishedAt: "2026-05-23T17:00:00Z"
+tags: ["product", "building"]
+translations:
+  et: animatsioon-mille-eemaldasin
+---
+
+There was an animation in my product that I had been proud of for half a
+year. A 120-millisecond ease on a state change. It was the smallest
+moment of detail I had put in. I removed it last month, and the product
+is better for it.
+
+## Why I had loved it
+
+It made the change feel intentional. It signalled "yes, that worked," in
+a way that a static transition could not. I had iterated on the curve
+three times. It was, on its own, a good piece of work.
+
+## Why I removed it
+
+A user told me, casually, that they had assumed the animation meant the
+app was "loading." They were waiting for the animation to finish before
+clicking the next thing. A 120ms wait, multiplied across every
+interaction, was costing them flow.
+
+I had built a delay that signalled importance, and they had read it as
+slowness. They were right.
+
+## What I replaced it with
+
+Nothing. The new state appears instantly. The signal of "yes that worked"
+comes from the new state itself, which is now the fastest possible
+confirmation. It turns out a confirmation that arrives later than
+necessary is not a confirmation, it is a delay with style.
+
+## What I learned
+
+The detail I am proudest of is often the detail that is most worth
+examining. I had loved the animation. The user had been waiting on it.
+Both can be true. Only one of them was paying the cost.

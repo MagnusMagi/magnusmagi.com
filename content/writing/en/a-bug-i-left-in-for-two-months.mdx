@@ -1,0 +1,36 @@
+---
+title: "A bug I left in for two months"
+description: "Why the right time to fix it was the second I noticed, and what I am telling myself next time."
+publishedAt: "2026-05-22T05:00:00Z"
+tags: ["engineering", "building"]
+translations:
+  et: viga-mille-jatsin-sisse-kaheks-kuuks
+---
+
+There is a bug in my product that I knew about, on purpose, for two
+months. It was a small one. The repro was finicky. The fix was an
+afternoon. I delayed it by eight weeks for reasons I will not pretend
+were good.
+
+## Why I delayed
+
+It was not on anyone's path. The error was logged but did not surface to
+the user. I had bigger features in flight. Each week I asked myself
+whether to take the afternoon, and each week the answer was "next week."
+
+## What it actually cost
+
+The bug interacted with a feature I shipped six weeks later, in a way
+nobody predicted. The two together broke a flow that mattered. I spent
+two days untangling them. That is two days because of an afternoon I
+declined to spend.
+
+The cost of a known bug is not the bug. It is the surface area it
+creates for every later change.
+
+## What I am telling myself
+
+The day I see a bug, I either fix it or write down explicitly, in a
+ticket, what I am protecting by not fixing it. If I cannot articulate
+that, the bug is the highest priority. The honest version of the
+articulation has only existed twice. Both times the trade-off was real.
