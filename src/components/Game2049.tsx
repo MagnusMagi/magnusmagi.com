@@ -513,7 +513,7 @@ export function Game2049({ labels }: Game2049Props) {
         </button>
       </div>
 
-      <div className="relative">
+      <div className="relative isolate">
         <div
           ref={boardRef}
           role="application"
@@ -553,7 +553,7 @@ export function Game2049({ labels }: Game2049Props) {
         </div>
 
         {showWonOverlay ? (
-          <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
             <div
               role="dialog"
               aria-modal="true"
@@ -597,7 +597,7 @@ export function Game2049({ labels }: Game2049Props) {
         ) : null}
 
         {showOverOverlay ? (
-          <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
             <div
               role="dialog"
               aria-modal="true"
