@@ -72,6 +72,8 @@ export default async function MagiBirdPage({ params }: PageProps) {
                 best: t("best"),
                 restart: t("restart"),
                 ariaLabel: t("ariaLabel"),
+                easy: t("easy"),
+                hard: t("hard"),
               }}
             />
           </div>

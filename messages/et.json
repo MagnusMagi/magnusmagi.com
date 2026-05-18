@@ -164,7 +164,9 @@
       "score": "Skoor",
       "best": "Parim",
       "restart": "Mängi uuesti",
-      "ariaLabel": "Mägi Bird minimängu kanvas"
+      "ariaLabel": "Mägi Bird minimängu kanvas",
+      "easy": "Lihtne",
+      "hard": "Raske"
     },
     "g2049": {
       "cardTitle": "2049",

@@ -164,7 +164,9 @@
       "score": "Score",
       "best": "Best",
       "restart": "Play again",
-      "ariaLabel": "Mägi Bird mini game canvas"
+      "ariaLabel": "Mägi Bird mini game canvas",
+      "easy": "Easy",
+      "hard": "Hard"
     },
     "g2049": {
       "cardTitle": "2049",
