@@ -19,7 +19,7 @@ import { ReadingProgress } from "@/components/ReadingProgress";
 import { RelatedPosts } from "@/components/RelatedPosts";
 import { TagChip } from "@/components/TagChip";
 import { getContact, getFooter } from "@/content/site";
-import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/content/writing";
+import { getAllPosts, getPostBySlug, getRelatedPosts, toIsoTimestamp } from "@/content/writing";
 import { extractToc } from "@/lib/toc";
 import type { Locale } from "@/i18n/routing";
 import { formatDate } from "@/lib/format";
@@ -141,8 +141,8 @@ export default async function WritingPostPage({ params }: PageProps) {
     mainEntityOfPage: { "@type": "WebPage", "@id": postUrl(locale, slug) },
     headline: post.frontmatter.title,
     description: post.frontmatter.description,
-    datePublished: `${post.frontmatter.publishedAt}T00:00:00Z`,
-    dateModified: `${dateModified}T00:00:00Z`,
+    datePublished: toIsoTimestamp(post.frontmatter.publishedAt),
+    dateModified: toIsoTimestamp(dateModified),
     inLanguage: locale === "et" ? "et-EE" : "en-US",
     keywords: post.frontmatter.tags.join(", "),
     wordCount: post.wordCount,
@@ -250,7 +250,7 @@ export default async function WritingPostPage({ params }: PageProps) {
           />
           <header className="mt-8 flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
-              <time dateTime={`${post.frontmatter.publishedAt}T00:00:00Z`}>
+              <time dateTime={toIsoTimestamp(post.frontmatter.publishedAt)}>
                 {formatDate(post.frontmatter.publishedAt, locale)}
               </time>
               <span aria-hidden="true">·</span>

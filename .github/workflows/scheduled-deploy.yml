@@ -1,0 +1,34 @@
+name: Scheduled deploy
+
+# Triggers two redeploys per day so future-dated posts in
+# content/writing/{en,et}/ become visible automatically once their
+# publishedAt timestamp has passed.
+#
+# Times are UTC. 06:00 UTC ≈ 09:00 Tallinn winter / 08:00 summer.
+# 18:00 UTC ≈ 21:00 Tallinn winter / 20:00 summer.
+#
+# Requires repository secret VERCEL_DEPLOY_HOOK_URL — create one in
+# Vercel project settings (Git → Deploy Hooks) and add it here under
+# Settings → Secrets and variables → Actions.
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL secret is not set" >&2
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST "$DEPLOY_HOOK_URL"
+          echo
+          echo "Deploy hook triggered."

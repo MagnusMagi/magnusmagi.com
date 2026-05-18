@@ -7,16 +7,29 @@ import { z } from "zod";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content", "writing");
 
+const DATE_OR_DATETIME =
+  /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2}))?$/;
+
+export function toIsoTimestamp(value: string): string {
+  return value.length === 10 ? `${value}T00:00:00Z` : value;
+}
+
 const PostFrontmatter = z
   .object({
     title: z.string().min(1),
     description: z.string().min(1),
     publishedAt: z
       .string()
-      .regex(/^\d{4}-\d{2}-\d{2}$/, "publishedAt must be YYYY-MM-DD"),
+      .regex(
+        DATE_OR_DATETIME,
+        "publishedAt must be YYYY-MM-DD or ISO 8601 datetime",
+      ),
     updatedAt: z
       .string()
-      .regex(/^\d{4}-\d{2}-\d{2}$/, "updatedAt must be YYYY-MM-DD")
+      .regex(
+        DATE_OR_DATETIME,
+        "updatedAt must be YYYY-MM-DD or ISO 8601 datetime",
+      )
       .optional(),
     tags: z.array(z.string()).optional().default([]),
     draft: z.boolean().optional().default(false),
@@ -131,19 +144,25 @@ async function listLocaleFiles(locale: string): Promise<string[]> {
   }
 }
 
+function isPublishable(post: Post): boolean {
+  if (process.env.NODE_ENV !== "production") return true;
+  if (post.frontmatter.draft) return false;
+  const publishedTs = Date.parse(toIsoTimestamp(post.frontmatter.publishedAt));
+  if (Number.isNaN(publishedTs)) return false;
+  return publishedTs <= Date.now();
+}
+
 export const getAllPosts = cache(async (locale: string): Promise<Post[]> => {
   const files = await listLocaleFiles(locale);
   const posts = await Promise.all(files.map((file) => readPost(locale, file)));
 
   return posts
     .filter((post): post is Post => post !== null)
-    .filter((post) =>
-      process.env.NODE_ENV === "production" ? !post.frontmatter.draft : true,
-    )
+    .filter(isPublishable)
     .sort(
       (a, b) =>
-        Date.parse(b.frontmatter.publishedAt) -
-        Date.parse(a.frontmatter.publishedAt),
+        Date.parse(toIsoTimestamp(b.frontmatter.publishedAt)) -
+        Date.parse(toIsoTimestamp(a.frontmatter.publishedAt)),
     );
 });
 
@@ -152,7 +171,10 @@ export const getPostBySlug = cache(
     const candidates = [`${slug}.mdx`, `${slug}.md`];
     for (const file of candidates) {
       try {
-        return await readPost(locale, file);
+        const post = await readPost(locale, file);
+        if (!post) return null;
+        if (!isPublishable(post)) return null;
+        return post;
       } catch (error) {
         if (
           error instanceof Error &&
@@ -217,8 +239,8 @@ export const getRelatedPosts = cache(
       .sort((a, b) => {
         if (b.overlap !== a.overlap) return b.overlap - a.overlap;
         return (
-          Date.parse(b.post.frontmatter.publishedAt) -
-          Date.parse(a.post.frontmatter.publishedAt)
+          Date.parse(toIsoTimestamp(b.post.frontmatter.publishedAt)) -
+          Date.parse(toIsoTimestamp(a.post.frontmatter.publishedAt))
         );
       });
 
